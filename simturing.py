@@ -25,6 +25,11 @@ print('Autores: Alberto Gusmão e Gabriel Gondim')
 
 print('\nForneça a palavra inicial: ',end='')
 palavra = input()
+listaCaracteres = list(palavra)
+listaCaracteres =[elemento.strip() for elemento in listaCaracteres if elemento.strip()]
+
+print(listaCaracteres)
+
 
 Arquivo("teste.MT").lerArquivo()
 
