@@ -1,5 +1,6 @@
 import argparse
 
+from Arquivo import Arquivo
 
 #Argumentos necessários pro programa
 """
@@ -24,4 +25,8 @@ print('Autores: Alberto Gusmão e Gabriel Gondim')
 
 print('\nForneça a palavra inicial: ',end='')
 palavra = input()
+
+Arquivo("teste.MT").lerArquivo()
+
+
 
