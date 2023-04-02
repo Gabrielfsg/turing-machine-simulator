@@ -52,13 +52,10 @@ class Maquina:
             self.delim = delim
 
     def __str__(self):
-
         #bloco e estado atual
         s = f"{self.bloco.rjust(16,'.')}.{'{:04d}'.format(int(self.estadoAtual))}: "
-
         #formatando saídas: cabeçote, parte esquerda da fita e parte direita da fita
         cabecote = f"{self.delim[0]}{self.fita[self.cabecote]}{self.delim[1]}"
-
         s += f"{self.fitaEsquerda()}{cabecote}{self.fitaDireita()}"
         return s
 

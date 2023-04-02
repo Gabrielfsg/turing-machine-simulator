@@ -1,6 +1,8 @@
 # Turing Machine Simulator
 
-Para rodar na linha de comando: ./simturing \<opções> \<programa>
+Para rodar na linha de comando (arquivo .EXE): ./simturing \<opções> \<programa>
+
+Caso queria rodar usando interpretador python: python simturing.py \<opções> \<programa> 
 
 ## \<opções\>: Argumentos na linha de comando
 

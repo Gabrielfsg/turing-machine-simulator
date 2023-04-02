@@ -46,7 +46,7 @@
      01 ∗ −− ∗ e 01
  fim ; iniEsq
 
- ; avanca a t e c a r a c t e r e minu scul o ou _
+ ; avanca ate caractere minusculo ou _
  bloco iniDir 1
      01 _ −− ∗ i retorne
      01 a −− ∗ i retorne
