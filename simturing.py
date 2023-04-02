@@ -27,27 +27,22 @@ group.add_argument('-v', type=int, dest='verbose',help='Verbose numerado: mostra
 group.add_argument('-verbose', type=int ,dest='verbose',help='Verbose numerado: mostra n linhas de execução passo a passo e depois para.')
 args = parser.parse_args()
 
+# ----------- Lendo arquivo e criando transições da maquina ------------
+mt = Maquina()
+mt.delim = args.head
+# args.filename
+Arquivo("teste.MT").lerArquivo(mt)
+mt.printTransicoes()
 # ------------------------ Simulador ----------------------------------------
 print('Simulador de Máquina de Turing ver 1.0 - IFMG 2023')
 print('Desenvolvido como trabalho prático para a disciplina de Teoria da Computação')
 print('Autores: Alberto Gusmão e Gabriel Gondim')
 
 palavra = input('\nForneça a palavra inicial: ')
-listaCaracteres = list(palavra)
-listaCaracteres = [elemento.strip() for elemento in listaCaracteres if elemento.strip()]
-
+mt.run(palavra)
+# listaCaracteres = list(palavra)
+# listaCaracteres = [elemento.strip() for elemento in listaCaracteres if elemento.strip()]
 # print(listaCaracteres)
-
-#Verifica se foi passado delimitador customizado
-if args.head:
-    mt = Maquina(palavra,head)
-else:
-    mt = Maquina(palavra)
-
-# args.filename
-Arquivo("teste.MT").lerArquivo(mt)
-
-mt.printTransicoes()
 
 # while True:
 #     if args.resume: #Mostra conteudo final da fita e mata o programa

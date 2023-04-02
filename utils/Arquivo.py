@@ -10,7 +10,6 @@ class Arquivo():
             lendoBloco = False
             linhaNum = 1
             for linha in arq:
-                # print(linha)
                 linha = linha.strip()
                 if not linha.startswith(';') and linha != '': #ignoro os comentários
                        if linha.startswith('bloco'):
@@ -20,17 +19,21 @@ class Arquivo():
                        if linha.startswith('fim'):
                            lendoBloco = False
                        if lendoBloco and not linha.startswith('bloco'):
-                           aux = linha
-                           if len(aux.split()) == 3: #transicao com chamada de outro bloco
-                               estadoAtual,novoBloco,novoEstado = linha.split()
+                           cmd = linha.split()
+
+                           if len(cmd) == 3: #transicao com chamada de outro bloco
+                               estadoAtual,novoBloco,novoEstado = cmd
                                mt.criaTransicao(linhaNum,bloco,estadoAtual,novoEstado,novoBloco=novoBloco)
-                           elif len(aux.split()) == 6: #transicao normal dentro do bloco atual
-                               estadoAtual,simboloAtual,_,novoSimbolo,movimento,novoEstado = linha.split()
+                           elif len(cmd) == 4 and cmd[-1] == '!': #transicao com chamada de outro bloco com breakpoint
+                               estadoAtual,novoBloco,novoEstado,_ = cmd
+                               mt.criaTransicao(linhaNum,bloco,estadoAtual,novoEstado,novoBloco=novoBloco,breakpoint=True)
+                           elif len(cmd) == 6: #transicao normal dentro do bloco atual
+                               estadoAtual,simboloAtual,_,novoSimbolo,movimento,novoEstado = cmd
                                mt.criaTransicao(linhaNum,bloco,estadoAtual,novoEstado,simboloAtual,novoSimbolo,movimento)
-                           elif len(aux.split()) == 7:  # transicao normal dentro do bloco atual com BREAKPOINT
-                               estadoAtual, simboloAtual, _, novoSimbolo, movimento, novoEstado = linha.split()
+                           elif len(cmd) == 7 and cmd[-1] == '!':  # transicao normal dentro do bloco atual com BREAKPOINT
+                               estadoAtual, simboloAtual, _, novoSimbolo, movimento, novoEstado, _ = cmd
                                mt.criaTransicao(linhaNum, bloco, estadoAtual, novoEstado, simboloAtual, novoSimbolo,
-                                                movimento,True)
+                                                movimento,breakpoint=True)
                            else:
                                print(f'Linha[{linhaNum}]: Sintaxe do comando [{linha}] inválida !')
                                exit(1)

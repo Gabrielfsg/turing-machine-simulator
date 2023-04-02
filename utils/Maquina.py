@@ -30,68 +30,123 @@
 
 class Maquina:
 
-    def __init__(self,palavra,delim = '()'):
-        self.fita = palavra
+    def __init__(self):
 
+        self.fita = ''
         #Usados pra imprimir a saida
         self.bloco = dict()
         self.cabecote = 0
         self.estadoAtual = None
-
         #Usados no processamento da palavra
         self.simboloAtual = None
         self.novoSimbolo = None
         self.movimento = None
         self.novoEstado = None
-
         self.transicoes = dict()
-
         #delimitador do cabeçote
-        self.delim = delim
+        self.delim = None
 
-    def criaTransicao(self,linha,bloco,estadoAtual,novoEstado,
+    def criaTransicao(self,linha,bloco,estadoAtual,estadoNovo,
     simboloAtual=None,novoSimbolo=None,movimento=None,novoBloco=None,breakpoint=False):
 
         erro = False
-        if novoBloco is None:
+        if novoBloco is None: #verificar simbolos e movimento
+
             if len(bloco) > 16:
                 print(f'Linha[{linha}]: Nome do bloco [{bloco}] excede 16 caracteres !')
                 erro = True
-            if int(estadoAtual) > 9999:
-                print(f'Linha[{linha}]: Estado atual [{estadoAtual}]deve ser um inteiro de até 4 dígitos !')
-                erro = True
-            if int(novoEstado) > 9999 and (estadoAtual != 'pare' or estadoAtual != 'retorne'):
-                print(f'Linha[{linha}]: Novo estado [{novoEstado}]deve ser um inteiro de até 4 dígitos !')
-                erro = True
+
             if len(simboloAtual) > 1:
                 print(f'Linha[{linha}]: Simbolo atual [{simboloAtual}] inválido !')
                 erro = True
+
             if len(novoSimbolo) > 1:
                 print(f'Linha[{linha}]: Novo simbolo [{novoSimbolo}] inválido !')
                 erro = True
+
             if movimento != 'i' and movimento != 'd' and movimento != 'e':
                 print(f'Linha[{linha}]: Movimento [{movimento}] inválido !')
                 erro = True
-        else:
+        else: #verificar nome do bloco de chamada
             if len(novoBloco) > 16:
                 print(f'Linha[{linha}]: Nome do bloco de chamada [{novoBloco}] excede 16 caracteres !')
                 erro = True
+
+        #Analisando o estado atual informado e o novo estado
+        if estadoAtual == 'pare' or estadoAtual == 'retorne':
+            print(f'Linha[{linha}]: Estado atual [{estadoAtual}] deve possuir valor númerico!')
+            erro = True
+        else:
             if int(estadoAtual) > 9999:
                 print(f'Linha[{linha}]: Estado atual [{estadoAtual}]deve ser um inteiro de até 4 dígitos !')
                 erro = True
-            if int(novoEstado) > 9999 and (estadoAtual != 'pare' or estadoAtual != 'retorne'):
+
+        if estadoNovo != 'pare' and estadoNovo != 'retorne':
+            if int(estadoNovo) > 9999:
                 print(f'Linha[{linha}]: Novo estado [{novoEstado}]deve ser um inteiro de até 4 dígitos !')
                 erro = True
-
 
         if erro:
             print('Simulação encerrada com erros nas transições')
             exit(1)
 
         if novoBloco is None:
-            self.transicoes[(bloco,estadoAtual,simboloAtual)] = (novoSimbolo,movimento,novoEstado)
+            if breakpoint:
+                self.transicoes[(bloco,int(estadoAtual),simboloAtual)] = (novoSimbolo,movimento,estadoNovo,'!')
+            else:
+                self.transicoes[(bloco,int(estadoAtual),simboloAtual)] = (novoSimbolo,movimento,estadoNovo)
         else:
-            self.transicoes[(bloco,estadoAtual)] = (novoBloco,novoEstado)
+            if breakpoint:
+                self.transicoes[(bloco,int(estadoAtual))] = (novoBloco,estadoNovo,'!')
+            else:
+                self.transicoes[(bloco,int(estadoAtual))] = (novoBloco,estadoNovo)
+
+    def run(self,palavra,debug = True):
+        #Setup inicial, bloco main, estado 1
+        self.bloco = 'main'
+        self.estadoAtual = 1
+        self.fita = palavra
+        self.cabecote = 0
+        parar = False
+        if debug:
+            print(self) #printando configuração inicial da maquina
+        while not parar:
+            res = None
+            try:
+                res = self.transicoes[(self.bloco,self.estadoAtual,self.fita[self.cabecote])]
+                s,m,e = res
+                self.fita[self.cabecote] = s
+                match m:
+                    case 'd':
+                        self.cabecote+=1
+                    case 'e':
+                        self.cabecote-=1
+
+                if e == 'pare':
+                    print(self)
+                    print('Palavra aceita')
+                    exit(0)
+                elif e == 'retorne':
+                    pass
+                else:
+                    self.estadoAtual = e
+
+                if debug:
+                    print(self)
+
+            except Exception:
+                try:
+                    #chamada de bloco
+                    res = self.transicoes[(self.bloco,self.estadoAtual)]
+                    b,e = res
+                    self.bloco = b
+                    self.run(palavra)
+                    self.estadoAtual = e
+                except Exception:
+                    print(f'Não foi possível encontrar uma transição para o bloco {self.bloco} e estado {self.estadoAtual}')
+                    exit(1)
+
+            # print(f'res: {res}')
     def criaBloco(self,b,estadoInicial):
         if b in self.bloco.keys():
             print(f'Bloco {b} já existe !')
@@ -100,9 +155,15 @@ class Maquina:
 
     def printTransicoes(self):
         print('Imprimindo transicoes')
-        for (b,e,s) in self.transicoes.keys():
-            d = self.transicoes[(b,e,s)]
-            print(f'({b},{e},{s}) => ({d})')
+        for keys in self.transicoes.keys():
+            if len(keys) == 3:
+                b,e,s = keys
+                d = self.transicoes[(b,e,s)]
+                print(f'Instrução de bloco: ({b},{e},{s}) => ({d})')
+            if len(keys) == 2:
+                b,e = keys
+                d = self.transicoes[(b,e)]
+                print(f'Chamando bloco: ({b},{e}) => ({d})')
 
     def __str__(self):
         #bloco e estado atual
