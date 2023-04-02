@@ -4,7 +4,17 @@ class Arquivo():
         self.arquivo = arquivo
 
     def lerArquivo(self):
-        print(self.arquivo)
+        texto = []
         with open(self.arquivo) as arq:
-            for line in arq:
-                print(line)
+            for linha in arq:
+                linha = linha.strip()
+                texto.append(linha)
+        print(texto)
+
+
+    def removeComentarios(texto):
+        for linha in texto:
+            if linha.startswith(";"):
+                texto.remove(linha)
+        return texto
+
