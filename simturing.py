@@ -3,6 +3,7 @@
 import argparse
 
 from utils.Arquivo import Arquivo
+from utils.Maquina import Maquina
 
 #Argumentos necessários pro programa
 """
@@ -16,7 +17,7 @@ from utils.Arquivo import Arquivo
 
 parser = argparse.ArgumentParser()
 group = parser.add_mutually_exclusive_group()
-parser.add_argument('filename', help='Arquivo .MT')
+# parser.add_argument('filename', help='Arquivo .MT')
 parser.add_argument('-head', dest='head',type=str, help='Customiza delimitadores do cabeçote')
 group.add_argument('-r', dest='resume', action='store_true',help='Resume: executa o programa até o fim e depois imprime o conteúdo final na fita')
 group.add_argument('-resume',dest='resume', action='store_true',help='Resume: executa o programa até o fim e depois imprime o conteúdo final na fita')
@@ -35,9 +36,18 @@ palavra = input('\nForneça a palavra inicial: ')
 listaCaracteres = list(palavra)
 listaCaracteres = [elemento.strip() for elemento in listaCaracteres if elemento.strip()]
 
-print(listaCaracteres)
-Arquivo(args.filename).lerArquivo()
+# print(listaCaracteres)
 
+#Verifica se foi passado delimitador customizado
+if args.head:
+    mt = Maquina(palavra,head)
+else:
+    mt = Maquina(palavra)
+
+# args.filename
+Arquivo("teste.MT").lerArquivo(mt)
+
+mt.printTransicoes()
 
 # while True:
 #     if args.resume: #Mostra conteudo final da fita e mata o programa

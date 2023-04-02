@@ -1,7 +1,6 @@
 #Autores: Alberto Gusmão e Gabriel Gondim
 
 """
-
     Configuração de entrada da maquina:
 
     <estado atual> <símbolo atual> - - <novo símbolo> <movimento> <novo estado>
@@ -31,11 +30,11 @@
 
 class Maquina:
 
-    def __init__(self,palavra,delim = False):
+    def __init__(self,palavra,delim = '()'):
         self.fita = palavra
 
         #Usados pra imprimir a saida
-        self.bloco = None
+        self.bloco = dict()
         self.cabecote = 0
         self.estadoAtual = None
 
@@ -45,11 +44,65 @@ class Maquina:
         self.movimento = None
         self.novoEstado = None
 
+        self.transicoes = dict()
+
         #delimitador do cabeçote
-        if delim == False:
-            self.delim = '()'
+        self.delim = delim
+
+    def criaTransicao(self,linha,bloco,estadoAtual,novoEstado,
+    simboloAtual=None,novoSimbolo=None,movimento=None,novoBloco=None,breakpoint=False):
+
+        erro = False
+        if novoBloco is None:
+            if len(bloco) > 16:
+                print(f'Linha[{linha}]: Nome do bloco [{bloco}] excede 16 caracteres !')
+                erro = True
+            if int(estadoAtual) > 9999:
+                print(f'Linha[{linha}]: Estado atual [{estadoAtual}]deve ser um inteiro de até 4 dígitos !')
+                erro = True
+            if int(novoEstado) > 9999 and (estadoAtual != 'pare' or estadoAtual != 'retorne'):
+                print(f'Linha[{linha}]: Novo estado [{novoEstado}]deve ser um inteiro de até 4 dígitos !')
+                erro = True
+            if len(simboloAtual) > 1:
+                print(f'Linha[{linha}]: Simbolo atual [{simboloAtual}] inválido !')
+                erro = True
+            if len(novoSimbolo) > 1:
+                print(f'Linha[{linha}]: Novo simbolo [{novoSimbolo}] inválido !')
+                erro = True
+            if movimento != 'i' and movimento != 'd' and movimento != 'e':
+                print(f'Linha[{linha}]: Movimento [{movimento}] inválido !')
+                erro = True
         else:
-            self.delim = delim
+            if len(novoBloco) > 16:
+                print(f'Linha[{linha}]: Nome do bloco de chamada [{novoBloco}] excede 16 caracteres !')
+                erro = True
+            if int(estadoAtual) > 9999:
+                print(f'Linha[{linha}]: Estado atual [{estadoAtual}]deve ser um inteiro de até 4 dígitos !')
+                erro = True
+            if int(novoEstado) > 9999 and (estadoAtual != 'pare' or estadoAtual != 'retorne'):
+                print(f'Linha[{linha}]: Novo estado [{novoEstado}]deve ser um inteiro de até 4 dígitos !')
+                erro = True
+
+
+        if erro:
+            print('Simulação encerrada com erros nas transições')
+            exit(1)
+
+        if novoBloco is None:
+            self.transicoes[(bloco,estadoAtual,simboloAtual)] = (novoSimbolo,movimento,novoEstado)
+        else:
+            self.transicoes[(bloco,estadoAtual)] = (novoBloco,novoEstado)
+    def criaBloco(self,b,estadoInicial):
+        if b in self.bloco.keys():
+            print(f'Bloco {b} já existe !')
+            exit(1)
+        self.bloco[b] = estadoInicial
+
+    def printTransicoes(self):
+        print('Imprimindo transicoes')
+        for (b,e,s) in self.transicoes.keys():
+            d = self.transicoes[(b,e,s)]
+            print(f'({b},{e},{s}) => ({d})')
 
     def __str__(self):
         #bloco e estado atual
