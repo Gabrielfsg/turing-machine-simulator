@@ -1,3 +1,5 @@
+#Autores: Alberto Gusmão e Gabriel Gondim
+
 class Arquivo():
 
     def __init__(self, arquivo):

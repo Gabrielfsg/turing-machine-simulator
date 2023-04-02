@@ -15,7 +15,7 @@
      21 iniEsq 22
      22 a −− ∗ i 70
      22 b −− B i 30
-     22 _ −− ∗ i 60
+     22 _ −− ∗ i 60 !
 
      30 moveIni 31
      31 iniDir 32
@@ -46,7 +46,7 @@
      01 ∗ −− ∗ e 01
  fim ; iniEsq
 
- ; avanca a t e c a r a c t e r e minu scul o ou _
+ ; avanca ate caractere minusculo ou _
  bloco iniDir 1
      01 _ −− ∗ i retorne
      01 a −− ∗ i retorne
@@ -60,7 +60,7 @@
      02 ∗ −− ∗ d 03
      03 ∗ −− S d 04
      03 ∗ −− I d 04
-     03 ∗ −− M d r e t o r n e
+     03 ∗ −− M d retorne
  fim ; sim
 
  ; palavra nao eh palindromo
