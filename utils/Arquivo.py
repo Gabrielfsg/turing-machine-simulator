@@ -4,15 +4,13 @@ class Arquivo():
 
     def __init__(self, arquivo):
         self.arquivo = arquivo
+        self.texto = []
 
     def lerArquivo(self):
-        texto = []
         with open(self.arquivo) as arq:
             for linha in arq:
                 linha = linha.strip()
-                texto.append(linha)
-        print(texto)
-
+                self.texto.append(linha)
 
     def removeComentarios(texto):
         for linha in texto:
