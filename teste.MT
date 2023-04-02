@@ -60,7 +60,7 @@
      02 ∗ −− ∗ d 03
      03 ∗ −− S d 04
      03 ∗ −− I d 04
-     03 ∗ −− M d r e t o r n e
+     03 ∗ −− M d retorne
  fim ; sim
 
  ; palavra nao eh palindromo

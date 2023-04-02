@@ -1,3 +1,4 @@
+
 import argparse
 
 from Arquivo import Arquivo
@@ -12,21 +13,60 @@ from Arquivo import Arquivo
 
 """
 
-# parser = argparse.ArgumentParser(description='Simulador de Máquina de Turing ver 1.0 - IFMG 2023')
-# parser.add_argument('-r', '--arg1', help='Resume')
-# parser.add_argument('-s', '--arg2', help='Verbose')
-# parser.add_argument('-v', '--arg2', help='Verbose numerado')
-# args = parser.parse_args()
-
+parser = argparse.ArgumentParser()
+parser.add_argument('filename', help='Arquivo .MT')
+parser.add_argument('-r', dest='resume', action='store_true',help='Resume: executa o programa até o fim e depois imprime o conteúdo final na fita')
+parser.add_argument('-resume',dest='resume', action='store_true',help='Resume: executa o programa até o fim e depois imprime o conteúdo final na fita')
+parser.add_argument('-s', dest='step',action='store_true',help='Step: mostra a execução passo a passo')
+parser.add_argument('-step', dest='step',action='store_true',help='Step: mostra a execução passo a passo')
+parser.add_argument('-v', type=int, dest='verbose',help='Verbose numerado: mostra n linhas de execução passo a passo e depois para.')
+parser.add_argument('-verbose', type=int ,dest='verbose',help='Verbose numerado: mostra n linhas de execução passo a passo e depois para.')
+args = parser.parse_args()
 
 print('Simulador de Máquina de Turing ver 1.0 - IFMG 2023')
 print('Desenvolvido como trabalho prático para a disciplina de Teoria da Computação')
 print('Autores: Alberto Gusmão e Gabriel Gondim')
 
-print('\nForneça a palavra inicial: ',end='')
+print('\nForneça a palavra inicial: ', end='')
 palavra = input()
 
-Arquivo("teste.MT").lerArquivo()
+Arquivo(args.filename).lerArquivo()
+
+while True:
+    if args.resume: #Mostra conteudo final da fita e mata o programa
+        print('Mostrando o conteúdo somente no final da fita')
+        break
+    elif args.step: #faz uma execução linha a linha e mata o programa
+        print('Execução passo a passo')
+        break
+    elif args.verbose: #usuario define quantidade de passos, depois abre um prompt pedindo outras opções
+        if args.verbose == -1:
+            v = input('Defina a quantidade de passos: ')
+            args.verbose = int(v)
+        print(f'Rodando {args.verbose} linhas')
+        args.verbose = False
+    else: #prompt para o usuario escolher nova opção
+        while True:
+            op = input('Forneça opção (r,v,s): ')
+            match op:
+                case 'r':
+                    args.resume = True
+                    args.verbose = None
+                    args.step = None
+                    break
+                case 'v':
+                    args.resume = None
+                    args.verbose = -1
+                    args.step = None
+                    break
+                case 's':
+                    args.resume = None
+                    args.verbose = None
+                    args.step = True
+                    break
+                case _:
+                    print('Opção inválida !')
+
 
 
 
