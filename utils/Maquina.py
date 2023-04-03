@@ -137,9 +137,13 @@ class Maquina:
                 self.simboloAtual = self.obterSimboloAtual()
                 res = self.transicoes[(self.blocoAtual,int(self.estadoAtual),self.simboloAtual)]
                 s,m,e = res
+
                 if s != '*':
                     lista = list(self.fita)
-                    lista[self.cabecote] = s
+                    if self.saiuFita():
+                        lista.extend([s])
+                    else:
+                        lista[self.cabecote] = s
                     self.fita = "".join(lista)
 
                 match m:
@@ -149,8 +153,6 @@ class Maquina:
                         self.cabecote-=1
 
                 if e == 'pare':
-                    print(self)
-                    break
                     parar = True
 
                 elif e == 'retorne':
@@ -177,16 +179,20 @@ class Maquina:
                     #Voltando ao setup anterior de quem chamou o bloco
                     self.blocoAtual = blocoBkp
                     self.estadoAtual = e
+
+                    if self.estadoAtual == 'pare':
+                        parar = True
+
                 except Exception:
                     print(f'Não foi possível encontrar uma transição para o bloco {self.blocoAtual} e estado {self.estadoAtual}')
                     exit(1)
 
-            # print(f'res: {res}')
+        print(self)
     def criaBloco(self,b,estadoInicial):
         if b in self.bloco.keys():
             print(f'Bloco {b} já existe !')
             exit(1)
-        self.bloco[b] = estadoInicial
+        self.bloco[b] = int(estadoInicial)
 
     def saiuFita(self):
         if self.cabecote < len(self.fita):
@@ -198,13 +204,20 @@ class Maquina:
 
     def __str__(self):
         #bloco e estado atual
-        s = f"{self.blocoAtual.rjust(16,'.')}.{'{:04d}'.format(int(self.estadoAtual))}: "
+
+        try:
+            estadoAtual = '{:04d}'.format(int(self.estadoAtual))
+        except Exception:
+            estadoAtual = self.estadoAtual
+
+        s = f"{self.blocoAtual.rjust(16,'.')}.{estadoAtual}: "
         #formatando saídas: cabeçote, parte esquerda da fita e parte direita da fita
 
         if self.saiuFita(): #Saiu da palavra
             simb = '_'
         else:
             simb = self.fita[self.cabecote]
+
 
         cabecote = f"{self.delim[0]}{simb}{self.delim[1]}"
         s += f"{self.fitaEsquerda()}{cabecote}{self.fitaDireita()}"
