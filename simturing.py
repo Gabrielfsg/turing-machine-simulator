@@ -29,7 +29,6 @@ args = parser.parse_args()
 
 # ----------- Lendo arquivo e criando transições da maquina ------------
 mt = Maquina()
-mt.delim = args.head
 # args.filename
 Arquivo("teste.MT").lerArquivo(mt)
 mt.printTransicoes()
