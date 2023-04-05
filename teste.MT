@@ -70,7 +70,7 @@
     bloco nao 1
     01 moveFim 02
     02 * −− * d 03
-    03 * −− N d 04
-    03 * −− A d 04
-    03 * −− O d retorne
+    03 _ −− N d 04
+    04 _ −− A d 05
+    05 _ −− O d retorne
 fim ; nao
