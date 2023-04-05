@@ -53,7 +53,7 @@ class Arquivo():
 
     def executaArquivo(self):
         estadoFinal = False
-        entrada = "baba"
+        entrada = "acba"
         ponteiro = int(entrada.find(entrada[0]))
         blocoAnterior = None
         blocoAtual = "main"
@@ -61,7 +61,16 @@ class Arquivo():
         estadoAnterior = None
         estadoPosRetorne = None
         listaRetorno = []
+        passou = 0
+        nExiste = 0
         while not estadoFinal:
+
+            if passou == 0:
+                nExiste += 1
+                if nExiste == 2:
+                    print("Erro, não existe transição para esse simbolo. ")
+                    exit()
+
             for elementos in self.banco:
                 if (elementos["nome"] == blocoAtual):
                     if estadoAtual is None:
@@ -69,11 +78,13 @@ class Arquivo():
                     for dados in elementos["dados"]:
 
                         if estadoAtual == "pare":
+                            print(entrada)
                             exit()
 
                         if estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(estadoAtual):
                             if len(dados) == 5:
                                 if dados["simboloAtual"] == entrada[ponteiro] or dados["simboloAtual"] == "*":
+                                    passou += 1
                                     estadoAnterior = dados["estadoAtual"]
                                     estadoAtual = dados["comandoNovoEstado"]
                                     if dados["novoSimbolo"] != "*":
@@ -104,6 +115,7 @@ class Arquivo():
                                     break
 
                             if len(dados) == 3:
+                                passou += 1
                                 estadoAnterior = dados["estadoAtual"]
                                 estadoPosRetorne = dados["comandoNovoEstado"]
                                 estadoAtual = None
