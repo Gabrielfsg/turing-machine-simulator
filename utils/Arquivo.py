@@ -76,7 +76,7 @@ class Arquivo():
                                 if dados["simboloAtual"] == entrada[ponteiro] or dados["simboloAtual"] == "*":
                                     estadoAnterior = dados["estadoAtual"]
                                     estadoAtual = dados["comandoNovoEstado"]
-                                    if dados["novoSimbolo"] != "∗":
+                                    if dados["novoSimbolo"] != "*":
                                         listaEntrada = list(entrada)
                                         listaEntrada[ponteiro] = dados["novoSimbolo"]
                                         entrada = "".join(listaEntrada)
