@@ -73,7 +73,7 @@ class Arquivo():
 
                         if estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(estadoAtual):
                             if len(dados) == 5:
-                                if dados["simboloAtual"] == entrada[ponteiro] or dados["simboloAtual"] == "∗":
+                                if dados["simboloAtual"] == entrada[ponteiro] or dados["simboloAtual"] == "*":
                                     estadoAnterior = dados["estadoAtual"]
                                     estadoAtual = dados["comandoNovoEstado"]
                                     if dados["novoSimbolo"] != "∗":
