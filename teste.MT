@@ -17,7 +17,7 @@
      21 iniEsq 22
      22 a −− * i 70
      22 b −− B i 30
-     22 _ −− * i 60 !
+     22 _ −− * d 60
 
      30 moveIni 31
      31 iniDir 32
