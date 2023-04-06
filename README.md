@@ -1,8 +1,8 @@
 # Turing Machine Simulator
 
-Para rodar na linha de comando (arquivo .EXE): ./simturing \<opções> \<programa>
+Como rodar:
 
-Caso queria rodar usando interpretador python: python simturing.py \<opções> \<programa> 
+    python simturing.py \<opções> \<programa> 
 
 ## \<opções\>: Argumentos na linha de comando
 
@@ -12,7 +12,7 @@ Caso queria rodar usando interpretador python: python simturing.py \<opções> \
 
 -v ou -verbose: imprime n passos de execução, necessário passar um número inteiro logo na frente do argumento. Exemplo: 
     
-    simturing -v 10 teste.MT.
+    python simturing.py -v 10 teste.MT.
 
 ## \<programa>: Path do arquivo com extensão .MT com o código que o simulador deve executar.
 

@@ -37,35 +37,36 @@ class Maquina:
         #Inicializando valores que serão exibidos na saída
         self.ponteiro = int(entrada.find(entrada[0]))
         self.blocoAtual = "main"
-        self.estadoAtual = None
+        self.estadoAtual = '01'
+        self.listaRetorno = []
+        self.blocoAnterior = None
+        self.estadoAnterior = None
+        self.estadoFinal = False
+        self.estadoPosRetorne = None
         #delimitador do cabeçote
         if delim:
             self.delim = delim
         else: #delimitador padrão
             self.delim = '()'
 
-    def run(self,debug=False):
-        estadoFinal = False
-        blocoAnterior = None
-        estadoAnterior = None
-        estadoPosRetorne = None
-        self.estadoAtual = '01'
-        listaRetorno = []
+    def run(self,debug=False,verbose=False):
         passou = 0
         nExiste = 0
+        # i = contador de passos, começo em 2, pois já vou imprimir o primeiro passo antes de entrar no loop
+        i = 2
         if debug:
             print(self)
-        while not estadoFinal:
+        while not self.estadoFinal:
 
             if passou == 0:
                 nExiste += 1
                 if nExiste == 2:
                     print("Erro, não existe transição para esse simbolo. ")
                     exit()
+
             for elementos in self.banco:
                 if (elementos["nome"] == self.blocoAtual):
-                    if self.estadoAtual is None:
-                        self.estadoAtual = elementos["estadoInicial"]
+
                     for dados in elementos["dados"]:
 
                         if self.estadoAtual == "pare":
@@ -97,31 +98,43 @@ class Maquina:
                                             self.ponteiro = self.ponteiro + 1
 
                                     if self.estadoAtual == "retorne":
-                                        self.estadoAtual = listaRetorno[len(listaRetorno) - 1]["estadoPosRetorne"]
+                                        self.estadoAtual = self.listaRetorno[len(self.listaRetorno) - 1]["estadoPosRetorne"]
                                         blocoAnterior = self.blocoAtual
-                                        self.blocoAtual = listaRetorno[len(listaRetorno) - 1]["blocoAnterior"]
-                                        listaRetorno.pop()
+                                        self.blocoAtual = self.listaRetorno[len(self.listaRetorno) - 1]["blocoAnterior"]
+                                        self.listaRetorno.pop()
                                         break
 
                                     if debug:
                                         print(self)
 
+                                    if verbose and verbose == i:
+                                        return
+
+                                    #conta um passo realizado
+                                    i+=1
                                     break
 
                             if len(dados) == 3:
                                 passou += 1
-                                estadoAnterior = dados["estadoAtual"]
-                                estadoPosRetorne = dados["comandoNovoEstado"]
-                                self.estadoAtual = None
+                                self.estadoAnterior = dados["estadoAtual"]
+                                self.estadoPosRetorne = dados["comandoNovoEstado"]
+                                self.estadoAtual = elementos["estadoInicial"]
                                 self.blocoAtual = dados["bloco"]
-                                blocoAnterior = elementos["nome"]
-                                listaRetorno.append(
-                                    {"estadoAnterior": estadoAnterior, "estadoPosRetorne": estadoPosRetorne,
-                                     "blocoAtual": self.blocoAtual, "blocoAnterior": blocoAnterior})
+                                self.blocoAnterior = elementos["nome"]
+                                self.listaRetorno.append(
+                                    {"estadoAnterior": self.estadoAnterior, "estadoPosRetorne": self.estadoPosRetorne,
+                                     "blocoAtual": self.blocoAtual, "blocoAnterior": self.blocoAnterior})
 
+                                if debug:
+                                    print(self)
+
+                                if verbose and verbose == i:
+                                    return
+
+                                i+=1
                                 break
 
-            if estadoFinal == True:
+            if self.estadoFinal:
                 break
 
     def __str__(self):
