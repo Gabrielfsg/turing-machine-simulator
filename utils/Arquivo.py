@@ -5,8 +5,9 @@ import codecs
 
 class Arquivo():
 
-    def __init__(self, arquivo):
+    def __init__(self, arquivo,entrada):
         self.arquivo = arquivo
+        self.entrada = entrada
         self.texto = None
         self.textoEmLinhas = None
         self.banco = []
@@ -53,7 +54,7 @@ class Arquivo():
 
     def executaArquivo(self):
         estadoFinal = False
-        entrada = "acba"
+        entrada = self.entrada
         ponteiro = int(entrada.find(entrada[0]))
         blocoAnterior = None
         blocoAtual = "main"
@@ -70,7 +71,6 @@ class Arquivo():
                 if nExiste == 2:
                     print("Erro, não existe transição para esse simbolo. ")
                     exit()
-
             for elementos in self.banco:
                 if (elementos["nome"] == blocoAtual):
                     if estadoAtual is None:
@@ -112,6 +112,7 @@ class Arquivo():
                                         listaRetorno.pop()
                                         break
 
+
                                     break
 
                             if len(dados) == 3:
@@ -124,6 +125,7 @@ class Arquivo():
                                 listaRetorno.append(
                                     {"estadoAnterior": estadoAnterior, "estadoPosRetorne": estadoPosRetorne,
                                      "blocoAtual": blocoAtual, "blocoAnterior": blocoAnterior})
+
                                 break
 
 
