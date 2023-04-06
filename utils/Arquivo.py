@@ -5,9 +5,8 @@ import codecs
 
 class Arquivo():
 
-    def __init__(self, arquivo,entrada):
+    def __init__(self, arquivo):
         self.arquivo = arquivo
-        self.entrada = entrada
         self.texto = None
         self.textoEmLinhas = None
         self.banco = []
@@ -18,8 +17,7 @@ class Arquivo():
             self.texto = arq
             texto = self.separarTexto()
             self.textoEmLinhas = texto
-            self.separarBlocos()
-            self.executaArquivo()
+            return self.separarBlocos()
 
     def separarTexto(self):
         texto = []
@@ -52,82 +50,6 @@ class Arquivo():
                     blocoAtual = None
                     dadosBloco = None
 
-    def executaArquivo(self):
-        estadoFinal = False
-        entrada = self.entrada
-        ponteiro = int(entrada.find(entrada[0]))
-        blocoAnterior = None
-        blocoAtual = "main"
-        estadoAtual = None
-        estadoAnterior = None
-        estadoPosRetorne = None
-        listaRetorno = []
-        passou = 0
-        nExiste = 0
-        while not estadoFinal:
-
-            if passou == 0:
-                nExiste += 1
-                if nExiste == 2:
-                    print("Erro, não existe transição para esse simbolo. ")
-                    exit()
-            for elementos in self.banco:
-                if (elementos["nome"] == blocoAtual):
-                    if estadoAtual is None:
-                        estadoAtual = elementos["estadoInicial"]
-                    for dados in elementos["dados"]:
-
-                        if estadoAtual == "pare":
-                            print(entrada)
-                            exit()
-
-                        if estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(estadoAtual):
-                            if len(dados) == 5:
-                                if dados["simboloAtual"] == entrada[ponteiro] or dados["simboloAtual"] == "*":
-                                    passou += 1
-                                    estadoAnterior = dados["estadoAtual"]
-                                    estadoAtual = dados["comandoNovoEstado"]
-                                    if dados["novoSimbolo"] != "*":
-                                        listaEntrada = list(entrada)
-                                        listaEntrada[ponteiro] = dados["novoSimbolo"]
-                                        entrada = "".join(listaEntrada)
-
-                                    if dados["movimento"] == "e":
-                                        if ponteiro == 0:
-                                            entrada = "_" + entrada
-                                        else:
-                                            ponteiro = ponteiro - 1
-
-                                    if dados["movimento"] == "d":
-                                        if ponteiro == len(entrada) - 1:
-                                            entrada = entrada + "_"
-                                            ponteiro = ponteiro + 1
-                                        else:
-                                            ponteiro = ponteiro + 1
-
-                                    if estadoAtual == "retorne":
-                                        estadoAtual = listaRetorno[len(listaRetorno) - 1]["estadoPosRetorne"]
-                                        blocoAnterior = blocoAtual
-                                        blocoAtual = listaRetorno[len(listaRetorno) - 1]["blocoAnterior"]
-                                        listaRetorno.pop()
-                                        break
+        return self.banco
 
 
-                                    break
-
-                            if len(dados) == 3:
-                                passou += 1
-                                estadoAnterior = dados["estadoAtual"]
-                                estadoPosRetorne = dados["comandoNovoEstado"]
-                                estadoAtual = None
-                                blocoAtual = dados["bloco"]
-                                blocoAnterior = elementos["nome"]
-                                listaRetorno.append(
-                                    {"estadoAnterior": estadoAnterior, "estadoPosRetorne": estadoPosRetorne,
-                                     "blocoAtual": blocoAtual, "blocoAnterior": blocoAnterior})
-
-                                break
-
-
-            if estadoFinal == True:
-                break

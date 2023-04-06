@@ -3,6 +3,7 @@
 import argparse
 
 from utils.Arquivo import Arquivo
+from utils.Maquina import Maquina
 
 #Argumentos necessários pro programa
 """
@@ -32,13 +33,12 @@ print('Desenvolvido como trabalho prático para a disciplina de Teoria da Comput
 print('Autores: Alberto Gusmão e Gabriel Gondim')
 
 palavra = input('\nForneça a palavra inicial: ')
-listaCaracteres = list(palavra)
-listaCaracteres = [elemento.strip() for elemento in listaCaracteres if elemento.strip()]
 
-print(listaCaracteres)
-Arquivo("teste.MT",palavra).lerArquivo()
+banco = Arquivo("teste.MT").lerArquivo()
+mt = Maquina(banco,palavra,args.head)
+mt.run(True)
 
-#
+
 # while True:
 #     if args.resume: #Mostra conteudo final da fita e mata o programa
 #         print('Mostrando o conteúdo somente no final da fita')

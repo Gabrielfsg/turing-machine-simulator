@@ -30,177 +30,99 @@
 
 class Maquina:
 
-    def __init__(self,delim='()'):
+    def __init__(self,banco,entrada,delim):
 
-        self.fita = ''
-        #Usados pra imprimir a saida
-        self.bloco = dict()
-        self.blocoAtual = 'main'
-        self.cabecote = 0
-        self.estadoAtual = 1
-        #Usados no processamento da palavra
-        self.simboloAtual = None
-        self.novoSimbolo = None
-        self.movimento = None
-        self.novoEstado = None
-        self.transicoes = dict()
+        self.entrada = entrada
+        self.banco = banco
+        #Inicializando valores que serão exibidos na saída
+        self.ponteiro = int(entrada.find(entrada[0]))
+        self.blocoAtual = "main"
+        self.estadoAtual = None
         #delimitador do cabeçote
-        self.delim = delim
+        if delim:
+            self.delim = delim
+        else: #delimitador padrão
+            self.delim = '()'
 
-    def criaTransicao(self,linha,bloco,estadoAtual,estadoNovo,
-    simboloAtual=None,novoSimbolo=None,movimento=None,novoBloco=None,breakpoint=False):
-
-        erro = False
-        if novoBloco is None: #verificar simbolos e movimento
-
-            if len(bloco) > 16:
-                print(f'Linha[{linha}]: Nome do bloco [{bloco}] excede 16 caracteres !')
-                erro = True
-
-            if len(simboloAtual) > 1:
-                print(f'Linha[{linha}]: Simbolo atual [{simboloAtual}] inválido !')
-                erro = True
-
-            if len(novoSimbolo) > 1:
-                print(f'Linha[{linha}]: Novo simbolo [{novoSimbolo}] inválido !')
-                erro = True
-
-            if movimento != 'i' and movimento != 'd' and movimento != 'e':
-                print(f'Linha[{linha}]: Movimento [{movimento}] inválido !')
-                erro = True
-        else: #verificar nome do bloco de chamada
-            if len(novoBloco) > 16:
-                print(f'Linha[{linha}]: Nome do bloco de chamada [{novoBloco}] excede 16 caracteres !')
-                erro = True
-
-        #Analisando o estado atual informado e o novo estado
-        if estadoAtual == 'pare' or estadoAtual == 'retorne':
-            print(f'Linha[{linha}]: Estado atual [{estadoAtual}] deve possuir valor númerico!')
-            erro = True
-        else:
-            if int(estadoAtual) > 9999:
-                print(f'Linha[{linha}]: Estado atual [{estadoAtual}]deve ser um inteiro de até 4 dígitos !')
-                erro = True
-
-        if estadoNovo != 'pare' and estadoNovo != 'retorne':
-            if int(estadoNovo) > 9999:
-                print(f'Linha[{linha}]: Novo estado [{estadoNovo}]deve ser um inteiro de até 4 dígitos !')
-                erro = True
-
-        if erro:
-            print('Simulação encerrada com erros nas transições')
-            exit(1)
-
-        if novoBloco is None:
-            if breakpoint:
-                self.transicoes[(bloco,int(estadoAtual),simboloAtual)] = (novoSimbolo,movimento,estadoNovo,'!')
-            else:
-                self.transicoes[(bloco,int(estadoAtual),simboloAtual)] = (novoSimbolo,movimento,estadoNovo)
-        else:
-            if breakpoint:
-                self.transicoes[(bloco,int(estadoAtual))] = (novoBloco,estadoNovo,'!')
-            else:
-                self.transicoes[(bloco,int(estadoAtual))] = (novoBloco,estadoNovo)
-
-    def run(self,palavra,debug = True):
-        #Setup inicial, bloco main, estado 1, primeira letra do cabeçote
-        self.fita = palavra
-
+    def run(self,debug=False):
+        estadoFinal = False
+        blocoAnterior = None
+        estadoAnterior = None
+        estadoPosRetorne = None
+        self.estadoAtual = '01'
+        listaRetorno = []
+        passou = 0
+        nExiste = 0
         if debug:
-            print(self) #printando configuração inicial da maquina
+            print(self)
+        while not estadoFinal:
 
-        self.mover(debug)
+            if passou == 0:
+                nExiste += 1
+                if nExiste == 2:
+                    print("Erro, não existe transição para esse simbolo. ")
+                    exit()
+            for elementos in self.banco:
+                if (elementos["nome"] == self.blocoAtual):
+                    if self.estadoAtual is None:
+                        self.estadoAtual = elementos["estadoInicial"]
+                    for dados in elementos["dados"]:
 
-    def obterSimboloAtual(self): #verificando se há transição pro caractere que está no cabeçote
+                        if self.estadoAtual == "pare":
+                            print(self)
+                            exit()
 
-        if not self.saiuFita():
-            charCabecote = self.fita[self.cabecote]
-            if self.transicoes.get((self.blocoAtual,int(self.estadoAtual),charCabecote)):
-                return charCabecote
-            elif self.transicoes.get((self.blocoAtual,int(self.estadoAtual),'*')):
-                return '*'
-            elif self.transicoes.get((self.blocoAtual,int(self.estadoAtual),'_')):
-                return '_'
-            elif self.transicoes.get((self.blocoAtual,int(self.estadoAtual))): #É chamada de bloco, retonar o proprio caractere
-                return charCabecote
-            else:
-                print('Não foi possível encontrar transições para o símbolo atual na fita')
-                exit(1)
-        else:
-            return '_'
+                        if self.estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(self.estadoAtual):
+                            if len(dados) == 5:
+                                if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == "*":
+                                    passou += 1
+                                    estadoAnterior = dados["estadoAtual"]
+                                    self.estadoAtual = dados["comandoNovoEstado"]
+                                    if dados["novoSimbolo"] != "*":
+                                        listaEntrada = list(self.entrada)
+                                        listaEntrada[self.ponteiro] = dados["novoSimbolo"]
+                                        self.entrada = "".join(listaEntrada)
 
-    def mover(self,debug):
-        parar = False
-        while not parar:
-            res = None
-            try:
-                self.simboloAtual = self.obterSimboloAtual()
-                res = self.transicoes[(self.blocoAtual,int(self.estadoAtual),self.simboloAtual)]
-                s,m,e = res
+                                    if dados["movimento"] == "e":
+                                        if self.ponteiro == 0:
+                                            self.entrada = "_" + self.entrada
+                                        else:
+                                            self.ponteiro = self.ponteiro - 1
 
-                if s != '*':
-                    lista = list(self.fita)
-                    if self.saiuFita():
-                        lista.extend([s])
-                    else:
-                        lista[self.cabecote] = s
-                    self.fita = "".join(lista)
+                                    if dados["movimento"] == "d":
+                                        if self.ponteiro == len(self.entrada) - 1:
+                                            self.entrada = self.entrada + "_"
+                                            self.ponteiro = self.ponteiro + 1
+                                        else:
+                                            self.ponteiro = self.ponteiro + 1
 
-                match m:
-                    case 'd':
-                        self.cabecote+=1
-                    case 'e':
-                        self.cabecote-=1
+                                    if self.estadoAtual == "retorne":
+                                        self.estadoAtual = listaRetorno[len(listaRetorno) - 1]["estadoPosRetorne"]
+                                        blocoAnterior = self.blocoAtual
+                                        self.blocoAtual = listaRetorno[len(listaRetorno) - 1]["blocoAnterior"]
+                                        listaRetorno.pop()
+                                        break
 
-                if e == 'pare':
-                    parar = True
+                                    if debug:
+                                        print(self)
 
-                elif e == 'retorne':
-                    return
-                else:
-                    self.estadoAtual = e
+                                    break
 
-                if debug:
-                    print(self)
+                            if len(dados) == 3:
+                                passou += 1
+                                estadoAnterior = dados["estadoAtual"]
+                                estadoPosRetorne = dados["comandoNovoEstado"]
+                                self.estadoAtual = None
+                                self.blocoAtual = dados["bloco"]
+                                blocoAnterior = elementos["nome"]
+                                listaRetorno.append(
+                                    {"estadoAnterior": estadoAnterior, "estadoPosRetorne": estadoPosRetorne,
+                                     "blocoAtual": self.blocoAtual, "blocoAnterior": blocoAnterior})
 
-            except Exception as a:
-                try:
-                    blocoBkp = self.blocoAtual
+                                break
 
-                    #chamada de bloco
-                    res = self.transicoes[(self.blocoAtual,int(self.estadoAtual))]
-                    b,e = res
-
-                    self.blocoAtual = b
-                    self.estadoAtual = self.bloco[b]
-
-                    self.mover(debug)
-
-                    #Voltando ao setup anterior de quem chamou o bloco
-                    self.blocoAtual = blocoBkp
-                    self.estadoAtual = e
-
-                    if self.estadoAtual == 'pare':
-                        parar = True
-
-                except Exception:
-                    print(f'Não foi possível encontrar uma transição para o bloco {self.blocoAtual} e estado {self.estadoAtual}')
-                    exit(1)
-
-        print(self)
-    def criaBloco(self,b,estadoInicial):
-        if b in self.bloco.keys():
-            print(f'Bloco {b} já existe !')
-            exit(1)
-        self.bloco[b] = int(estadoInicial)
-
-    def saiuFita(self):
-        if self.cabecote < len(self.fita):
-            if self.cabecote < 0: #saiu pela esquerda
-                return True
-        else: #saiu pela direita
-            return True
-        return False
+            if estadoFinal == True:
+                break
 
     def __str__(self):
         #bloco e estado atual
@@ -212,40 +134,21 @@ class Maquina:
 
         s = f"{self.blocoAtual.rjust(16,'.')}.{estadoAtual}: "
         #formatando saídas: cabeçote, parte esquerda da fita e parte direita da fita
-
-        if self.saiuFita(): #Saiu da palavra
-            simb = '_'
-        else:
-            simb = self.fita[self.cabecote]
-
-
-        cabecote = f"{self.delim[0]}{simb}{self.delim[1]}"
+        cabecote = f"{self.delim[0]}{self.entrada[self.ponteiro]}{self.delim[1]}"
         s += f"{self.fitaEsquerda()}{cabecote}{self.fitaDireita()}"
         return s
 
     def fitaEsquerda(self):
         max_len = 20
-        fitaEsq = ''
-        if self.cabecote > 0:
-            fitaEsq = self.fita[:self.cabecote][::-1][:20][::-1]
+        fitaEsq = self.entrada[:self.ponteiro][::-1][:20][::-1]
         while len(fitaEsq) < max_len:
             fitaEsq = '_' + fitaEsq
         return fitaEsq
 
     def fitaDireita(self):
         max_len = 20
-        fitaDir = self.fita[self.cabecote+1:self.cabecote+20]
+        fitaDir = self.entrada[self.ponteiro+1:self.ponteiro+20]
         while len(fitaDir) < max_len:
             fitaDir += '_'
         return fitaDir
 
-    def printTransicoes(self):
-        for keys in self.transicoes.keys():
-            if len(keys) == 3: #comando comum
-                b,e,s = keys
-                d = self.transicoes[(b,e,s)]
-                print(f'Instrução de bloco: ({b},{e},{s}) => {d}')
-            if len(keys) == 2: #comando de chamada de bloco
-                b,e = keys
-                d = self.transicoes[(b,e)]
-                print(f'Chamando bloco: ({b},{e}) => {d}')
