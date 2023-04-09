@@ -40,12 +40,12 @@ mt = Maquina(banco,palavra,args.head)
 while True:
     if args.resume: #Mostra conteudo final da fita e mata o programa
         print('Mostrando o conteúdo somente no final da fita')
+        args.resume = False
         mt.run()
-        break
     elif args.step: #faz uma execução linha a linha e mata o programa
         print('Execução passo a passo')
+        args.step = False
         mt.run(True)
-        break
     elif args.verbose: #usuario define quantidade de passos, depois abre um prompt pedindo outras opções
         if args.verbose == -1:
             v = input('Defina a quantidade de passos: ')

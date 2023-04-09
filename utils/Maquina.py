@@ -43,6 +43,8 @@ class Maquina:
         self.estadoAnterior = None
         self.estadoFinal = False
         self.estadoPosRetorne = None
+        self.pausa = None
+        self.pausaPosBloco = None
         #delimitador do cabeçote
         if delim:
             self.delim = delim
@@ -58,6 +60,10 @@ class Maquina:
             print(self)
         while not self.estadoFinal:
 
+            if self.pausaPosBloco:
+                self.pausaPosBloco = None
+                return
+
             if passou == 0:
                 nExiste += 1
                 if nExiste == 2:
@@ -65,6 +71,7 @@ class Maquina:
                     exit()
 
             for elementos in self.banco:
+
                 if (elementos["nome"] == self.blocoAtual):
 
                     for dados in elementos["dados"]:
@@ -74,7 +81,7 @@ class Maquina:
                             exit()
 
                         if self.estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(self.estadoAtual):
-                            if len(dados) == 5:
+                            if len(dados) == 5 or len(dados) == 6:
                                 if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == "*":
                                     passou += 1
                                     estadoAnterior = dados["estadoAtual"]
@@ -98,11 +105,18 @@ class Maquina:
                                             self.ponteiro = self.ponteiro + 1
 
                                     if self.estadoAtual == "retorne":
-                                        self.estadoAtual = self.listaRetorno[len(self.listaRetorno) - 1]["estadoPosRetorne"]
+                                        self.estadoAtual = self.listaRetorno[-1]["estadoPosRetorne"]
                                         blocoAnterior = self.blocoAtual
-                                        self.blocoAtual = self.listaRetorno[len(self.listaRetorno) - 1]["blocoAnterior"]
+                                        self.blocoAtual = self.listaRetorno[-1]["blocoAnterior"]
+                                        if self.listaRetorno[-1]["pausa"]:
+                                            self.pausaPosBloco = True
                                         self.listaRetorno.pop()
+                                        if len(dados) == 6:
+                                            return
                                         break
+                                    else:
+                                        if len(dados) == 6:
+                                            return
 
                                     if debug:
                                         print(self)
@@ -114,16 +128,22 @@ class Maquina:
                                     i+=1
                                     break
 
-                            if len(dados) == 3:
+                            if len(dados) == 3 or len(dados) == 4:
                                 passou += 1
                                 self.estadoAnterior = dados["estadoAtual"]
                                 self.estadoPosRetorne = dados["comandoNovoEstado"]
                                 self.estadoAtual = elementos["estadoInicial"]
                                 self.blocoAtual = dados["bloco"]
                                 self.blocoAnterior = elementos["nome"]
+
+                                if len(dados) == 4:
+                                    self.pausa = dados["pausa"]
+
                                 self.listaRetorno.append(
                                     {"estadoAnterior": self.estadoAnterior, "estadoPosRetorne": self.estadoPosRetorne,
-                                     "blocoAtual": self.blocoAtual, "blocoAnterior": self.blocoAnterior})
+                                     "blocoAtual": self.blocoAtual, "blocoAnterior": self.blocoAnterior, "pausa": self.pausa})
+
+                                self.pausa = None
 
                                 if debug:
                                     print(self)
