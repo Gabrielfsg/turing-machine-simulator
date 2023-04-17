@@ -45,6 +45,7 @@ class Maquina:
         self.estadoPosRetorne = None
         self.pausa = None
         self.pausaPosBloco = None
+        self.simboloVerificado = 0
         #delimitador do cabeçote
         if delim:
             self.delim = delim
@@ -52,8 +53,6 @@ class Maquina:
             self.delim = '()'
 
     def run(self,debug=False,verbose=False):
-        passou = 0
-        nExiste = 0
         # i = contador de passos, começo em 2, pois já vou imprimir o primeiro passo antes de entrar no loop
         i = 2
         if debug:
@@ -64,14 +63,8 @@ class Maquina:
                 self.pausaPosBloco = None
                 return
 
-            if passou == 0:
-                nExiste += 1
-                if nExiste == 2:
-                    print("Erro, não existe transição para esse simbolo. ")
-                    exit()
-
             for elementos in self.banco:
-
+                self.simboloVerificado = 0
                 if (elementos["nome"] == self.blocoAtual):
 
                     for dados in elementos["dados"]:
@@ -80,10 +73,16 @@ class Maquina:
                             print(self)
                             exit()
 
+                        if self.simboloVerificado == 0:
+                            if self.verificaTransicao():
+                                self.simboloVerificado = 1
+                            else:
+                                print("Erro, não existe transição para esse simbolo. ")
+                                exit()
+
                         if self.estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(self.estadoAtual):
                             if len(dados) == 5 or len(dados) == 6:
                                 if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == "*":
-                                    passou += 1
                                     estadoAnterior = dados["estadoAtual"]
                                     self.estadoAtual = dados["comandoNovoEstado"]
                                     if dados["novoSimbolo"] != "*":
@@ -129,7 +128,6 @@ class Maquina:
                                     break
 
                             if len(dados) == 3 or len(dados) == 4:
-                                passou += 1
                                 self.estadoAnterior = dados["estadoAtual"]
                                 self.estadoPosRetorne = dados["comandoNovoEstado"]
                                 self.estadoAtual = elementos["estadoInicial"]
@@ -185,3 +183,14 @@ class Maquina:
             fitaDir += '_'
         return fitaDir
 
+    def verificaTransicao(self):
+        for elementos in self.banco:
+            if elementos["nome"] == self.blocoAtual:
+                for dados in elementos["dados"]:
+                    if int(dados['estadoAtual']) == int(self.estadoAtual):
+                        if len(dados) == 5 or len(dados) == 6:
+                            if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == "*":
+                                return True
+                        if len(dados) == 3 or len(dados) == 4:
+                                return True
+        return False
