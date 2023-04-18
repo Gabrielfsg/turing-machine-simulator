@@ -1,0 +1,62 @@
+;Exemplo Somador de Numeros
+
+; bloco main 1
+
+; 1 moveFim 2
+1 * * * mf1
+
+2 0 * l 2
+2 1 * * menos1
+2 2 * * menos2
+2 3 * * menos3
+2 4 * * menos4
+2 5 * * menos5
+2 6 * * menos6
+2 7 * * menos7
+2 8 * * menos8
+2 9 * * menos9
+2 _ * * halt-accept
+
+; moveFim:
+mf1 _ * l 2
+mf1 * * r mf1
+
+menos1 1 0 r seta9e0
+menos2 2 1 r seta9e0
+menos3 3 2 r seta9e0
+menos4 4 3 r seta9e0
+menos5 5 4 r seta9e0
+menos6 6 5 r seta9e0
+menos7 7 6 r seta9e0
+menos8 8 7 r seta9e0
+menos9 9 8 r seta9e0
+
+seta9e0 0 9 r seta9e0
+seta9e0 1 9 r seta9e0
+seta9e0 2 9 r seta9e0
+seta9e0 3 9 r seta9e0
+seta9e0 4 9 r seta9e0
+seta9e0 5 9 r seta9e0
+seta9e0 6 9 r seta9e0
+seta9e0 7 9 r seta9e0
+seta9e0 8 9 r seta9e0
+seta9e0 9 9 r seta9e0
+seta9e0 * * r escreveA 
+
+retornaNum 0 * * 2
+retornaNum 1 * * 2
+retornaNum 2 * * 2
+retornaNum 3 * * 2
+retornaNum 4 * * 2
+retornaNum 5 * * 2
+retornaNum 6 * * 2
+retornaNum 7 * * 2
+retornaNum 8 * * 2
+retornaNum 9 * * 2
+retornaNum * * l retornaNum
+
+escreveA _ a l jaEscreveuA
+escreveA a * r escreveA
+
+jaEscreveuA a * l jaEscreveuA 
+jaEscreveuA * * * retornaNum 
