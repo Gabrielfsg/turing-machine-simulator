@@ -1,137 +1,124 @@
-;Exemplo Somador de Numeros
+;0=a
+;1=b
+;2=c
+;3=d
+;4=e
+;5=f
+;6=g
+;7=h
+;8=i
+;9=j
 
-; bloco main 1
 
-; 1 moveFim 2
-1 * * * mf1
+0 * * * movDirNumEsq
 
-2 0 * l 2
-2 1 * * menos1
-2 2 * * menos2
-2 3 * * menos3
-2 4 * * menos4
-2 5 * * menos5
-2 6 * * menos6
-2 7 * * menos7
-2 8 * * menos8
-2 9 * * menos9
-2 a * * f1fator
+movDirNumEsq + * l numEsq
+movDirNumEsq * * r movDirNumEsq
 
-; moveFim:
-mf1 _ * l 2
-mf1 * * r mf1
+numEsq 0 a * movDirNumDirOpe0
+numEsq 1 b * movDirNumDirOpe1
+numEsq 2 c * movDirNumDirOpe2
+numEsq 3 d * movDirNumDirOpe3
+numEsq 4 e * movDirNumDirOpe4
+numEsq 5 f * movDirNumDirOpe5
+numEsq 6 g * movDirNumDirOpe6
+numEsq 7 h * movDirNumDirOpe7
+numEsq 8 i * movDirNumDirOpe8
+numEsq 9 j * movDirNumDirOpe9
 
-menos1 1 0 r seta9e0
-menos2 2 1 r seta9e0
-menos3 3 2 r seta9e0
-menos4 4 3 r seta9e0
-menos5 5 4 r seta9e0
-menos6 6 5 r seta9e0
-menos7 7 6 r seta9e0
-menos8 8 7 r seta9e0
-menos9 9 8 r seta9e0
+movDirNumDirOpe0 _ * l somaNumEsq0
+movDirNumDirOpe0 * * r movDirNumDirOpe0
 
-seta9e0 0 9 r seta9e0
-seta9e0 1 9 r seta9e0
-seta9e0 2 9 r seta9e0
-seta9e0 3 9 r seta9e0
-seta9e0 4 9 r seta9e0
-seta9e0 5 9 r seta9e0
-seta9e0 6 9 r seta9e0
-seta9e0 7 9 r seta9e0
-seta9e0 8 9 r seta9e0
-seta9e0 9 9 r seta9e0
-seta9e0 * * l escreveA 
+movDirNumDirOpe1 _ * l somaNumEsq1
+movDirNumDirOpe1 * * r movDirNumDirOpe1
 
-retornaNum 0 * * 2
-retornaNum 1 * * 2
-retornaNum 2 * * 2
-retornaNum 3 * * 2
-retornaNum 4 * * 2
-retornaNum 5 * * 2
-retornaNum 6 * * 2
-retornaNum 7 * * 2
-retornaNum 8 * * 2
-retornaNum 9 * * 2
-retornaNum * * l retornaNum
+movDirNumDirOpe2 _ * l somaNumEsq2
+movDirNumDirOpe2 * * r movDirNumDirOpe2
 
-escreveA 0 * l escreveA  
-escreveA 1 * l escreveA
-escreveA 2 * l escreveA
-escreveA 3 * l escreveA
-escreveA 4 * l escreveA
-escreveA 5 * l escreveA
-escreveA 6 * l escreveA
-escreveA 7 * l escreveA
-escreveA 8 * l escreveA
-escreveA 9 * l escreveA
-escreveA a * l escreveA
-escreveA _ a r jaEscreveuA
+movDirNumDirOpe3 _ * l somaNumEsq3
+movDirNumDirOpe3 * * r movDirNumDirOpe3
 
-jaEscreveuA _ * l 2
-jaEscreveuA * * r jaEscreveuA
+movDirNumDirOpe4 _ * l somaNumEsq4
+movDirNumDirOpe4 * * r movDirNumDirOpe4
 
-f1fator + * r segundoF
-f1fator * * r f1fator
+movDirNumDirOpe5 _ * l somaNumEsq5
+movDirNumDirOpe5 * * r movDirNumDirOpe5
 
-segundoF _ * r segundoF
-segundoF * * * main2
+movDirNumDirOpe6 _ * l somaNumEsq6
+movDirNumDirOpe6 * * r movDirNumDirOpe6
 
-main2 * * * mf2
+movDirNumDirOpe7 _ * l somaNumEsq7
+movDirNumDirOpe7 * * r movDirNumDirOpe7
 
-2F 0 * l 2F
-2F 1 * * menos1F
-2F 2 * * menos2F
-2F 3 * * menos3F
-2F 4 * * menos4F
-2F 5 * * menos5F
-2F 6 * * menos6F
-2F 7 * * menos7F
-2F 8 * * menos8F
-2F 9 * * menos9F
-2F _ * * halt-accept
+movDirNumDirOpe8 _ * l somaNumEsq8
+movDirNumDirOpe8 * * r movDirNumDirOpe8
 
-; moveFim:
-mf2 _ * l 2F
-mf2 * * r mf2
+movDirNumDirOpe9 _ * l somaNumEsq9
+movDirNumDirOpe9 * * r movDirNumDirOpe9
 
-menos1F 1 0 r seta9e0F
-menos2F 2 1 r seta9e0F
-menos3F 3 2 r seta9e0F
-menos4F 4 3 r seta9e0F
-menos5F 5 4 r seta9e0F
-menos6F 6 5 r seta9e0F
-menos7F 7 6 r seta9e0F
-menos8F 8 7 r seta9e0F
-menos9F 9 8 r seta9e0F
+somaNumEsq1 0 a r setaResultEsq1Dir0
+somaNumEsq1 1 b r setaResultEsq1Dir1
+somaNumEsq1 2 c r setaResultEsq1Dir2
+somaNumEsq1 3 d r setaResultEsq1Dir3
+somaNumEsq1 4 e r setaResultEsq1Dir4
+somaNumEsq1 5 f r setaResultEsq1Dir5
+somaNumEsq1 6 g r setaResultEsq1Dir6
+somaNumEsq1 7 h r setaResultEsq1Dir7
+somaNumEsq1 8 i r setaResultEsq1Dir8
+somaNumEsq1 9 j r setaResultEsq1Dir9vai1
 
-seta9e0F 0 9 r seta9e0F
-seta9e0F 1 9 r seta9e0F
-seta9e0F 2 9 r seta9e0F
-seta9e0F 3 9 r seta9e0F
-seta9e0F 4 9 r seta9e0F
-seta9e0F 5 9 r seta9e0F
-seta9e0F 6 9 r seta9e0F
-seta9e0F 7 9 r seta9e0F
-seta9e0F 8 9 r seta9e0F
-seta9e0F 9 9 r seta9e0F
-seta9e0F * * * escreveAF 
+setaResultEsq1Dir0 _ = r setaRespEsq1Dir0
+setaRespEsq1Dir0 _ 1 * halt-accept
 
-retornaNumF 0 * * 2F
-retornaNumF 1 * * 2F
-retornaNumF 2 * * 2F
-retornaNumF 3 * * 2F
-retornaNumF 4 * * 2F
-retornaNumF 5 * * 2F
-retornaNumF 6 * * 2F
-retornaNumF 7 * * 2F
-retornaNumF 8 * * 2F
-retornaNumF 9 * * 2F
-retornaNumF * * l retornaNumF
+setaResultEsq1Dir1 _ = r setaRespEsq1Dir1
+setaRespEsq1Dir1 _ 2 * halt-accept
 
-escreveAF _ a l jaEscreveuAF
-escreveAF a * r escreveAF
+setaResultEsq1Dir2 _ = r setaRespEsq1Dir2
+setaRespEsq1Dir2 _ 3 * halt-accept
 
-jaEscreveuAF a * l jaEscreveuAF 
-jaEscreveuAF * * * retornaNumF 
- 
+setaResultEsq1Dir3 _ = r setaRespEsq1Dir3
+setaRespEsq1Dir3 _ 4 * halt-accept
+
+setaResultEsq1Dir4 _ = r setaRespEsq1Dir4
+setaRespEsq1Dir4 _ 5 * halt-accept
+
+setaResultEsq1Dir5 _ = r setaRespEsq1Dir5
+setaRespEsq1Dir5 _ 6 * halt-accept
+
+setaResultEsq1Dir6 _ = r setaRespEsq1Dir6
+setaRespEsq1Dir6 _ 7 * halt-accept
+
+setaResultEsq1Dir7 _ = r setaRespEsq1Dir7
+setaRespEsq1Dir7 _ 8 * halt-accept
+
+setaResultEsq1Dir8 _ = r setaRespEsq1Dir8
+setaRespEsq1Dir8 _ 9 * halt-accept
+
+setaResultEsq1Dir9vai1 _ = r setaRespEsq1Dir9init
+setaRespEsq1Dir9init _ 1 r setaRespEsq1Dirfim
+setaRespEsq1Dirfim _ 0 * movResult
+
+movResult = * * 0
+movResult _ * l movResult
+movResult 0 _ r movResultSeta0
+movResult 1 _ r movResultSeta1
+movResult 2 _ r movResultSeta2
+movResult 3 _ r movResultSeta3
+movResult 4 _ r movResultSeta4
+movResult 5 _ r movResultSeta5
+movResult 6 _ r movResultSeta6
+movResult 7 _ r movResultSeta7
+movResult 8 _ r movResultSeta8
+movResult 9 _ r movResultSeta9
+
+movResultSeta0 _ 0 l movResult
+movResultSeta1 _ 1 l movResult
+movResultSeta2 _ 2 l movResult
+movResultSeta3 _ 3 l movResult
+movResultSeta4 _ 4 l movResult
+movResultSeta5 _ 5 l movResult
+movResultSeta6 _ 6 l movResult
+movResultSeta7 _ 7 l movResult
+movResultSeta8 _ 8 l movResult
+movResultSeta9 _ 9 l movResult
+
