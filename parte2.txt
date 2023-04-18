@@ -41,7 +41,7 @@ seta9e0 6 9 r seta9e0
 seta9e0 7 9 r seta9e0
 seta9e0 8 9 r seta9e0
 seta9e0 9 9 r seta9e0
-seta9e0 * * l escreveA
+seta9e0 * * l escreveA 
 
 retornaNum 0 * * 2
 retornaNum 1 * * 2
@@ -55,7 +55,7 @@ retornaNum 8 * * 2
 retornaNum 9 * * 2
 retornaNum * * l retornaNum
 
-escreveA 0 * l escreveA
+escreveA 0 * l escreveA  
 escreveA 1 * l escreveA
 escreveA 2 * l escreveA
 escreveA 3 * l escreveA
@@ -115,7 +115,7 @@ seta9e0F 6 9 r seta9e0F
 seta9e0F 7 9 r seta9e0F
 seta9e0F 8 9 r seta9e0F
 seta9e0F 9 9 r seta9e0F
-seta9e0F * * * escreveAF
+seta9e0F * * * escreveAF 
 
 retornaNumF 0 * * 2F
 retornaNumF 1 * * 2F
@@ -132,5 +132,6 @@ retornaNumF * * l retornaNumF
 escreveAF _ a l jaEscreveuAF
 escreveAF a * r escreveAF
 
-jaEscreveuAF a * l jaEscreveuAF
-jaEscreveuAF * * * retornaNumF
+jaEscreveuAF a * l jaEscreveuAF 
+jaEscreveuAF * * * retornaNumF 
+ 
