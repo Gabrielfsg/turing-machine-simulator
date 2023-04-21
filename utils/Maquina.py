@@ -35,7 +35,11 @@ class Maquina:
         self.entrada = entrada
         self.banco = banco
         #Inicializando valores que serão exibidos na saída
-        self.ponteiro = int(entrada.find(entrada[0]))
+        if len(entrada) == 0:
+            self.ponteiro = 0
+            self.entrada = "_"
+        else:
+            self.ponteiro = int(entrada.find(entrada[0]))
         self.blocoAtual = "main"
         self.estadoAtual = '01'
         self.listaRetorno = []
@@ -83,7 +87,7 @@ class Maquina:
                         if self.estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(self.estadoAtual):
                             if len(dados) == 5 or len(dados) == 6:
                                 if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == "*":
-                                    estadoAnterior = dados["estadoAtual"]
+                                    self.estadoAnterior = dados["estadoAtual"]
                                     self.estadoAtual = dados["comandoNovoEstado"]
                                     if dados["novoSimbolo"] != "*":
                                         listaEntrada = list(self.entrada)
@@ -105,7 +109,7 @@ class Maquina:
 
                                     if self.estadoAtual == "retorne":
                                         self.estadoAtual = self.listaRetorno[-1]["estadoPosRetorne"]
-                                        blocoAnterior = self.blocoAtual
+                                        self.blocoAnterior = self.blocoAtual
                                         self.blocoAtual = self.listaRetorno[-1]["blocoAnterior"]
                                         if self.listaRetorno[-1]["pausa"]:
                                             self.pausaPosBloco = True
