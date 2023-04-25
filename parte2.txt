@@ -9,6 +9,17 @@
 ;8=i
 ;9=j
 
+;0+1 = 1=k
+;1+1 = 2=l
+;2+1 = 3=m
+;3+1 = 4=n
+;4+1 = 5=o
+;5+1 = 6=p
+;6+1 = 7=q
+;7+1 = 8=r
+;8+1 = 9=s
+;9+1 = 0=t e u = 1
+
 
 1 0 * l 1ponto1
 1 1 * l 1ponto1
@@ -20,6 +31,19 @@
 1 7 * l 1ponto1
 1 8 * l 1ponto1
 1 9 * l 1ponto1
+
+1 t * l 1ponto1
+1 u * l 1ponto1
+1 k * l 1ponto1
+1 l * l 1ponto1
+1 m * l 1ponto1
+1 n * l 1ponto1
+1 o * l 1ponto1
+1 p * l 1ponto1
+1 q * l 1ponto1
+1 r * l 1ponto1
+1 s * l 1ponto1
+
 1 _ * r 3
 1 * * l 1
 
@@ -38,6 +62,7 @@
 3 h 7 r 3
 3 i 8 r 3
 3 j 9 r 3
+
 3 = * r 3
 3 + * r 3
 3 _ * r resultadoPronto
@@ -88,6 +113,19 @@ numEsq 6 g * movDirNumDirOpe6
 numEsq 7 h * movDirNumDirOpe7
 numEsq 8 i * movDirNumDirOpe8
 numEsq 9 j * movDirNumDirOpe9
+
+numEsq t j * movDirNumDirOpe0
+numEsq u _ * movDirNumDirOpe1
+numEsq k a * movDirNumDirOpe1
+numEsq l b * movDirNumDirOpe2
+numEsq m c * movDirNumDirOpe3
+numEsq n d * movDirNumDirOpe4
+numEsq o e * movDirNumDirOpe5
+numEsq p f * movDirNumDirOpe6
+numEsq q g * movDirNumDirOpe7
+numEsq r h * movDirNumDirOpe8
+numEsq s i * movDirNumDirOpe9
+
 numEsq _ * * movDirNumDirOpe0
 numEsq * * l numEsq
 
@@ -120,6 +158,20 @@ movDirNumDirOpe8 * * r movDirNumDirOpe8
 
 movDirNumDirOpe9 = * l somaNumEsq9
 movDirNumDirOpe9 * * r movDirNumDirOpe9
+
+
+somaNumEsq0 + * l setaResultEsq0Dir0
+somaNumEsq0 0 a r setaResultEsq0Dir0
+somaNumEsq0 1 b r setaResultEsq0Dir1
+somaNumEsq0 2 c r setaResultEsq0Dir2
+somaNumEsq0 3 d r setaResultEsq0Dir3
+somaNumEsq0 4 e r setaResultEsq0Dir4
+somaNumEsq0 5 f r setaResultEsq0Dir5
+somaNumEsq0 6 g r setaResultEsq0Dir6
+somaNumEsq0 7 h r setaResultEsq0Dir7
+somaNumEsq0 8 i r setaResultEsq0Dir8
+somaNumEsq0 9 j r setaResultEsq0Dir9
+somaNumEsq0 * * l somaNumEsq0
 
 somaNumEsq1 + * l setaResultEsq1Dir0
 somaNumEsq1 0 a r setaResultEsq1Dir0
@@ -173,6 +225,107 @@ somaNumEsq4 8 i r setaResultEsq4Dir8vai1
 somaNumEsq4 9 j r setaResultEsq4Dir9vai1
 somaNumEsq4 * * l somaNumEsq4
 
+
+somaNumEsq5 + * r setaResultEsq5Dir0
+somaNumEsq5 0 a r setaResultEsq5Dir0
+somaNumEsq5 1 b r setaResultEsq5Dir1
+somaNumEsq5 2 c r setaResultEsq5Dir2
+somaNumEsq5 3 d r setaResultEsq5Dir3
+somaNumEsq5 4 e r setaResultEsq5Dir4
+somaNumEsq5 5 f r setaResultEsq5Dir5vai1
+somaNumEsq5 6 g r setaResultEsq5Dir6vai1
+somaNumEsq5 7 h r setaResultEsq5Dir7vai1
+somaNumEsq5 8 i r setaResultEsq5Dir8vai1
+somaNumEsq5 9 j r setaResultEsq5Dir9vai1
+somaNumEsq5 * * l somaNumEsq5
+
+
+somaNumEsq6 + * r setaResultEsq6Dir0
+somaNumEsq6 0 a r setaResultEsq6Dir0
+somaNumEsq6 1 b r setaResultEsq6Dir1
+somaNumEsq6 2 c r setaResultEsq6Dir2
+somaNumEsq6 3 d r setaResultEsq6Dir3
+somaNumEsq6 4 e r setaResultEsq6Dir4vai1
+somaNumEsq6 5 f r setaResultEsq6Dir5vai1
+somaNumEsq6 6 g r setaResultEsq6Dir6vai1
+somaNumEsq6 7 h r setaResultEsq6Dir7vai1
+somaNumEsq6 8 i r setaResultEsq6Dir8vai1
+somaNumEsq6 9 j r setaResultEsq6Dir9vai1
+somaNumEsq6 * * l somaNumEsq6
+
+somaNumEsq7 + * r setaResultEsq7Dir0
+somaNumEsq7 0 a r setaResultEsq7Dir0
+somaNumEsq7 1 b r setaResultEsq7Dir1
+somaNumEsq7 2 c r setaResultEsq7Dir2
+somaNumEsq7 3 d r setaResultEsq7Dir3vai1
+somaNumEsq7 4 e r setaResultEsq7Dir4vai1
+somaNumEsq7 5 f r setaResultEsq7Dir5vai1
+somaNumEsq7 6 g r setaResultEsq7Dir6vai1
+somaNumEsq7 7 h r setaResultEsq7Dir7vai1
+somaNumEsq7 8 i r setaResultEsq7Dir8vai1
+somaNumEsq7 9 j r setaResultEsq7Dir9vai1
+somaNumEsq7 * * l somaNumEsq7
+
+somaNumEsq8 + * r setaResultEsq8Dir0
+somaNumEsq8 0 a r setaResultEsq8Dir0
+somaNumEsq8 1 b r setaResultEsq8Dir1
+somaNumEsq8 2 c r setaResultEsq8Dir2vai1
+somaNumEsq8 3 d r setaResultEsq8Dir3vai1
+somaNumEsq8 4 e r setaResultEsq8Dir4vai1
+somaNumEsq8 5 f r setaResultEsq8Dir5vai1
+somaNumEsq8 6 g r setaResultEsq8Dir6vai1
+somaNumEsq8 7 h r setaResultEsq8Dir7vai1
+somaNumEsq8 8 i r setaResultEsq8Dir8vai1
+somaNumEsq8 9 j r setaResultEsq8Dir9vai1
+somaNumEsq8 * * l somaNumEsq8
+
+somaNumEsq9 + * r setaResultEsq9Dir0
+somaNumEsq9 0 a r setaResultEsq9Dir0
+somaNumEsq9 1 b r setaResultEsq9Dir1vai1
+somaNumEsq9 2 c r setaResultEsq9Dir2vai1
+somaNumEsq9 3 d r setaResultEsq9Dir3vai1
+somaNumEsq9 4 e r setaResultEsq9Dir4vai1
+somaNumEsq9 5 f r setaResultEsq9Dir5vai1
+somaNumEsq9 6 g r setaResultEsq9Dir6vai1
+somaNumEsq9 7 h r setaResultEsq9Dir7vai1
+somaNumEsq9 8 i r setaResultEsq9Dir8vai1
+somaNumEsq9 9 j r setaResultEsq9Dir9vai1
+somaNumEsq9 * * l somaNumEsq9
+
+; 0
+
+setaResultEsq0Dir0 _ 0 * moverFimResult
+setaResultEsq0Dir0 * * r setaResultEsq0Dir0
+
+setaResultEsq0Dir1 _ 1 * moverFimResult
+setaResultEsq0Dir1 * * r setaResultEsq0Dir1
+
+setaResultEsq0Dir2 _ 2 * moverFimResult
+setaResultEsq0Dir2 * * r setaResultEsq0Dir2
+
+setaResultEsq0Dir3 _ 3 * moverFimResult
+setaResultEsq0Dir3 * * r setaResultEsq0Dir3
+
+setaResultEsq0Dir4 _ 4 * moverFimResult
+setaResultEsq0Dir4 * * r setaResultEsq0Dir4
+
+setaResultEsq0Dir5 _ 5 * moverFimResult
+setaResultEsq0Dir5 * * r setaResultEsq0Dir5
+
+setaResultEsq0Dir6 _ 6 * moverFimResult
+setaResultEsq0Dir6 * * r setaResultEsq0Dir6
+
+setaResultEsq0Dir7 _ 7 * moverFimResult
+setaResultEsq0Dir7 * * r setaResultEsq0Dir7
+
+setaResultEsq0Dir8 _ 8 * moverFimResult
+setaResultEsq0Dir8 * * r setaResultEsq0Dir8
+
+setaResultEsq0Dir9 _ 9 * moverFimResult
+setaResultEsq0Dir9 * * r setaResultEsq0Dir9
+
+;1
+
 setaResultEsq1Dir0 _ 1 * moverFimResult
 setaResultEsq1Dir0 * * r setaResultEsq1Dir0
 
@@ -201,8 +354,8 @@ setaResultEsq1Dir8 _ 9 * moverFimResult
 setaResultEsq1Dir8 * * r setaResultEsq1Dir8
 
 setaResultEsq1Dir9vai1 = * r setaResultEsq1Dir9vai1
-setaResultEsq1Dir9vai1 _ b r setaRespEsq1Dirfim
-setaRespEsq1Dirfim _ 0 l soma1noPrimeiroNum
+setaResultEsq1Dir9vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq1Dir9vai1 * * r setaResultEsq1Dir9vai1
 
 ; com 2
 
@@ -231,16 +384,14 @@ setaResultEsq2Dir7 _ 8 * moverFimResult
 setaResultEsq2Dir7 * * r setaResultEsq2Dir7
 
 setaResultEsq2Dir8vai1 = * r setaResultEsq2Dir8vai1
-setaResultEsq2Dir8vai1 _ b r setaRespEsq2Dirfim
-setaRespEsq2Dirfim _ 0 l soma1noPrimeiroNum
+setaResultEsq2Dir8vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq2Dir8vai1 * * r setaResultEsq2Dir8vai1
 
 setaResultEsq2Dir9vai1 = * r setaResultEsq2Dir9vai1
-setaResultEsq2Dir9vai1 _ b r setaRespEsq2Dirfim1
-setaRespEsq2Dirfim1 _ 1 l soma1noPrimeiroNum
-
+setaResultEsq2Dir9vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq2Dir9vai1 * * r setaResultEsq2Dir9vai1
 
 ;com 3
-
 
 setaResultEsq3Dir0 _ 3 * moverFimResult
 setaResultEsq3Dir0 * * r setaResultEsq3Dir0
@@ -264,16 +415,248 @@ setaResultEsq3Dir6 _ 9 * moverFimResult
 setaResultEsq3Dir6 * * r setaResultEsq3Dir6
 
 setaResultEsq3Dir7vai1 = * r setaResultEsq3Dir7vai1
-setaResultEsq3Dir7vai1 _ b r setaRespEsq3Dirfim
-setaRespEsq3Dirfim _ 0 l soma1noPrimeiroNum
+setaResultEsq3Dir7vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq3Dir7vai1 * * r setaResultEsq3Dir7vai1
 
 setaResultEsq3Dir8vai1 = * r setaResultEsq3Dir8vai1
-setaResultEsq3Dir8vai1 _ b r setaRespEsq3Dirfim1
-setaRespEsq3Dirfim1 _ 1 l soma1noPrimeiroNum
+setaResultEsq3Dir8vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq3Dir8vai1 * * r setaResultEsq3Dir8vai1
 
 setaResultEsq3Dir9vai1 = * r setaResultEsq3Dir9vai1
-setaResultEsq3Dir9vai1 _ b r setaRespEsq3Dirfim2
-setaRespEsq3Dirfim2 _ 2 l soma1noPrimeiroNum
+setaResultEsq3Dir9vai1 _ 2 l soma1noPrimeiroNum
+setaResultEsq3Dir9vai1 * * r setaResultEsq3Dir9vai1
+
+; 4
+
+setaResultEsq4Dir0 _ 4 * moverFimResult
+setaResultEsq4Dir0 * * r setaResultEsq4Dir0
+
+setaResultEsq4Dir1 _ 5 * moverFimResult
+setaResultEsq4Dir1 * * r setaResultEsq4Dir1
+
+setaResultEsq4Dir2 _ 6 * moverFimResult
+setaResultEsq4Dir2 * * r setaResultEsq4Dir2
+
+setaResultEsq4Dir3 _ 7 * moverFimResult
+setaResultEsq4Dir3 * * r setaResultEsq4Dir3
+
+setaResultEsq4Dir4 _ 8 * moverFimResult
+setaResultEsq4Dir4 * * r setaResultEsq4Dir4
+
+setaResultEsq4Dir5 _ 9 * moverFimResult
+setaResultEsq4Dir5 * * r setaResultEsq4Dir5
+
+setaResultEsq4Dir6vai1 = * r setaResultEsq4Dir6vai1
+setaResultEsq4Dir6vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq4Dir6vai1 * * r setaResultEsq4Dir6vai1
+
+setaResultEsq4Dir7vai1 = * r setaResultEsq4Dir7vai1
+setaResultEsq4Dir7vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq4Dir7vai1 * * r setaResultEsq4Dir7vai1
+
+setaResultEsq4Dir8vai1 = * r setaResultEsq4Dir8vai1
+setaResultEsq4Dir8vai1 _ 2 l soma1noPrimeiroNum
+setaResultEsq4Dir8vai1 * * r setaResultEsq4Dir8vai1
+
+setaResultEsq4Dir9vai1 = * r setaResultEsq4Dir9vai1
+setaResultEsq4Dir9vai1 _ 3 l soma1noPrimeiroNum
+setaResultEsq4Dir9vai1 * * r setaResultEsq4Dir9vai1
+
+; 5
+
+setaResultEsq5Dir0 _ 5 * moverFimResult
+setaResultEsq5Dir0 * * r setaResultEsq5Dir0
+
+setaResultEsq5Dir1 _ 6 * moverFimResult
+setaResultEsq5Dir1 * * r setaResultEsq5Dir1
+
+setaResultEsq5Dir2 _ 7 * moverFimResult
+setaResultEsq5Dir2 * * r setaResultEsq5Dir2
+
+setaResultEsq5Dir3 _ 8 * moverFimResult
+setaResultEsq5Dir3 * * r setaResultEsq5Dir3
+
+setaResultEsq5Dir4 _ 9 * moverFimResult
+setaResultEsq5Dir4 * * r setaResultEsq5Dir4
+
+setaResultEsq5Dir5vai1 = * r setaResultEsq5Dir5vai1
+setaResultEsq5Dir5vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq5Dir5vai1 * * r setaResultEsq5Dir5vai1
+
+setaResultEsq5Dir6vai1 = * r setaResultEsq5Dir6vai1
+setaResultEsq5Dir6vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq5Dir6vai1 * * r setaResultEsq5Dir6vai1
+
+setaResultEsq5Dir7vai1 = * r setaResultEsq5Dir7vai1
+setaResultEsq5Dir7vai1 _ 2 l soma1noPrimeiroNum
+setaResultEsq5Dir7vai1 * * r setaResultEsq5Dir7vai1
+
+setaResultEsq5Dir8vai1 = * r setaResultEsq5Dir8vai1
+setaResultEsq5Dir8vai1 _ 3 l soma1noPrimeiroNum
+setaResultEsq5Dir8vai1 * * r setaResultEsq5Dir8vai1
+
+setaResultEsq5Dir9vai1 = * r setaResultEsq5Dir9vai1
+setaResultEsq5Dir9vai1 _ 4 l soma1noPrimeiroNum
+setaResultEsq5Dir9vai1 * * r setaResultEsq5Dir9vai1
+
+
+; 6
+
+setaResultEsq6Dir0 _ 6 * moverFimResult
+setaResultEsq6Dir0 * * r setaResultEsq6Dir0
+
+setaResultEsq6Dir1 _ 7 * moverFimResult
+setaResultEsq6Dir1 * * r setaResultEsq6Dir1
+
+setaResultEsq6Dir2 _ 8 * moverFimResult
+setaResultEsq6Dir2 * * r setaResultEsq6Dir2
+
+setaResultEsq6Dir3 _ 9 * moverFimResult
+setaResultEsq6Dir3 * * r setaResultEsq6Dir3
+
+setaResultEsq6Dir4vai1 = * r setaResultEsq6Dir4vai1
+setaResultEsq6Dir4vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq6Dir4vai1 * * r setaResultEsq6Dir4vai1
+
+setaResultEsq6Dir5vai1 = * r setaResultEsq6Dir5vai1
+setaResultEsq6Dir5vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq6Dir5vai1 * * r setaResultEsq6Dir5vai1
+
+setaResultEsq6Dir6vai1 = * r setaResultEsq6Dir6vai1
+setaResultEsq6Dir6vai1 _ 2 l soma1noPrimeiroNum
+setaResultEsq6Dir6vai1 * * r setaResultEsq6Dir6vai1
+
+setaResultEsq6Dir7vai1 = * r setaResultEsq6Dir7vai1
+setaResultEsq6Dir7vai1 _ 3 l soma1noPrimeiroNum
+setaResultEsq6Dir7vai1 * * r setaResultEsq6Dir7vai1
+
+setaResultEsq6Dir8vai1 = * r setaResultEsq6Dir8vai1
+setaResultEsq6Dir8vai1 _ 4 l soma1noPrimeiroNum
+setaResultEsq6Dir8vai1 * * r setaResultEsq6Dir8vai1
+
+setaResultEsq6Dir9vai1 = * r setaResultEsq6Dir9vai1
+setaResultEsq6Dir9vai1 _ 5 l soma1noPrimeiroNum
+setaResultEsq6Dir9vai1 * * r setaResultEsq6Dir9vai1
+
+; 7
+
+setaResultEsq7Dir0 _ 7 * moverFimResult
+setaResultEsq7Dir0 * * r setaResultEsq7Dir0
+
+setaResultEsq7Dir1 _ 8 * moverFimResult
+setaResultEsq7Dir1 * * r setaResultEsq7Dir1
+
+setaResultEsq7Dir2 _ 9 * moverFimResult
+setaResultEsq7Dir2 * * r setaResultEsq7Dir2
+
+setaResultEsq7Dir3vai1 = * r setaResultEsq7Dir3vai1
+setaResultEsq7Dir3vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq7Dir3vai1 * * r setaResultEsq7Dir3vai1
+
+setaResultEsq7Dir4vai1 = * r setaResultEsq7Dir4vai1
+setaResultEsq7Dir4vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq7Dir4vai1 * * r setaResultEsq7Dir4vai1
+
+setaResultEsq7Dir5vai1 = * r setaResultEsq7Dir5vai1
+setaResultEsq7Dir5vai1 _ 2 l soma1noPrimeiroNum
+setaResultEsq7Dir5vai1 * * r setaResultEsq7Dir5vai1
+
+setaResultEsq7Dir6vai1 = * r setaResultEsq7Dir6vai1
+setaResultEsq7Dir6vai1 _ 3 l soma1noPrimeiroNum
+setaResultEsq7Dir6vai1 * * r setaResultEsq7Dir6vai1
+
+setaResultEsq7Dir7vai1 = * r setaResultEsq7Dir7vai1
+setaResultEsq7Dir7vai1 _ 4 l soma1noPrimeiroNum
+setaResultEsq7Dir7vai1 * * r setaResultEsq7Dir7vai1
+
+setaResultEsq7Dir8vai1 = * r setaResultEsq7Dir8vai1
+setaResultEsq7Dir8vai1 _ 5 l soma1noPrimeiroNum
+setaResultEsq7Dir8vai1 * * r setaResultEsq7Dir8vai1
+
+setaResultEsq7Dir9vai1 = * r setaResultEsq7Dir9vai1
+setaResultEsq7Dir9vai1 _ 6 l soma1noPrimeiroNum
+setaResultEsq7Dir9vai1 * * r setaResultEsq7Dir9vai1
+
+; 8
+
+setaResultEsq8Dir0 _ 8 * moverFimResult
+setaResultEsq8Dir0 * * r setaResultEsq8Dir0
+
+setaResultEsq8Dir1 _ 9 * moverFimResult
+setaResultEsq8Dir1 * * r setaResultEsq8Dir1
+
+setaResultEsq8Dir2vai1 = * r setaResultEsq8Dir2vai1
+setaResultEsq8Dir2vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq8Dir2vai1 * * r setaResultEsq8Dir2vai1
+
+setaResultEsq8Dir3vai1 = * r setaResultEsq8Dir3vai1
+setaResultEsq8Dir3vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq8Dir3vai1 * * r setaResultEsq8Dir3vai1
+
+setaResultEsq8Dir4vai1 = * r setaResultEsq8Dir4vai1
+setaResultEsq8Dir4vai1 _ 2 l soma1noPrimeiroNum
+setaResultEsq8Dir4vai1 * * r setaResultEsq8Dir4vai1
+
+setaResultEsq8Dir5vai1 = * r setaResultEsq8Dir5vai1
+setaResultEsq8Dir5vai1 _ 3 l soma1noPrimeiroNum
+setaResultEsq8Dir5vai1 * * r setaResultEsq8Dir5vai1
+
+setaResultEsq8Dir6vai1 = * r setaResultEsq8Dir6vai1
+setaResultEsq8Dir6vai1 _ 4 l soma1noPrimeiroNum
+setaResultEsq8Dir6vai1 * * r setaResultEsq8Dir6vai1
+
+setaResultEsq8Dir7vai1 = * r setaResultEsq8Dir7vai1
+setaResultEsq8Dir7vai1 _ 5 l soma1noPrimeiroNum
+setaResultEsq8Dir7vai1 * * r setaResultEsq8Dir7vai1
+
+setaResultEsq8Dir8vai1 = * r setaResultEsq8Dir8vai1
+setaResultEsq8Dir8vai1 _ 6 l soma1noPrimeiroNum
+setaResultEsq8Dir8vai1 * * r setaResultEsq8Dir8vai1
+
+setaResultEsq8Dir9vai1 = * r setaResultEsq8Dir9vai1
+setaResultEsq8Dir9vai1 _ 7 l soma1noPrimeiroNum
+setaResultEsq8Dir9vai1 * * r setaResultEsq8Dir9vai1
+
+; 9
+
+setaResultEsq9Dir0 _ 9 * moverFimResult
+setaResultEsq9Dir0 * * r setaResultEsq9Dir0
+
+setaResultEsq9Dir1vai1 = * r setaResultEsq9Dir1vai1
+setaResultEsq9Dir1vai1 _ 0 l soma1noPrimeiroNum
+setaResultEsq9Dir1vai1 * * r setaResultEsq9Dir1vai1
+
+setaResultEsq9Dir2vai1 = * r setaResultEsq9Dir2vai1
+setaResultEsq9Dir2vai1 _ 1 l soma1noPrimeiroNum
+setaResultEsq9Dir2vai1 * * r setaResultEsq9Dir2vai1
+
+setaResultEsq9Dir3vai1 = * r setaResultEsq9Dir3vai1
+setaResultEsq9Dir3vai1 _ 2 l soma1noPrimeiroNum
+setaResultEsq9Dir3vai1 * * r setaResultEsq9Dir3vai1
+
+setaResultEsq9Dir4vai1 = * r setaResultEsq9Dir4vai1
+setaResultEsq9Dir4vai1 _ 3 l soma1noPrimeiroNum
+setaResultEsq9Dir4vai1 * * r setaResultEsq9Dir4vai1
+
+setaResultEsq9Dir5vai1 = * r setaResultEsq9Dir5vai1
+setaResultEsq9Dir5vai1 _ 4 l soma1noPrimeiroNum
+setaResultEsq9Dir5vai1 * * r setaResultEsq9Dir5vai1
+
+setaResultEsq9Dir6vai1 = * r setaResultEsq9Dir6vai1
+setaResultEsq9Dir6vai1 _ 5 l soma1noPrimeiroNum
+setaResultEsq9Dir6vai1 * * r setaResultEsq9Dir6vai1
+
+setaResultEsq9Dir7vai1 = * r setaResultEsq9Dir7vai1
+setaResultEsq9Dir7vai1 _ 6 l soma1noPrimeiroNum
+setaResultEsq9Dir7vai1 * * r setaResultEsq9Dir7vai1
+
+setaResultEsq9Dir8vai1 = * r setaResultEsq9Dir8vai1
+setaResultEsq9Dir8vai1 _ 7 l soma1noPrimeiroNum
+setaResultEsq9Dir8vai1 * * r setaResultEsq9Dir8vai1
+
+setaResultEsq9Dir9vai1 = * r setaResultEsq9Dir9vai1
+setaResultEsq9Dir9vai1 _ 8 l soma1noPrimeiroNum
+setaResultEsq9Dir9vai1 * * r setaResultEsq9Dir9vai1
 
 ; mover
 
@@ -316,32 +699,20 @@ movResultSeta7 _ 7 l movResult
 movResultSeta8 _ 8 l movResult
 movResultSeta9 _ 9 l movResult
 
-soma1noPrimeiroNum 0 1 * primeiroElementoPosIgual
-soma1noPrimeiroNum 1 2 * primeiroElementoPosIgual
-soma1noPrimeiroNum 2 3 * primeiroElementoPosIgual
-soma1noPrimeiroNum 3 4 * primeiroElementoPosIgual
-soma1noPrimeiroNum 4 5 * primeiroElementoPosIgual
-soma1noPrimeiroNum 5 6 * primeiroElementoPosIgual
-soma1noPrimeiroNum 6 7 * primeiroElementoPosIgual
-soma1noPrimeiroNum 7 8 * primeiroElementoPosIgual
-soma1noPrimeiroNum 8 9 * primeiroElementoPosIgual
-soma1noPrimeiroNum 9 0 * primeiroElementoPosIgual
-soma1noPrimeiroNum _ * r moveAteIgual
+soma1noPrimeiroNum + * l soma1noPrimeiroNum2
 soma1noPrimeiroNum * * l soma1noPrimeiroNum
+soma1noPrimeiroNum2 0 k * primeiroElementoPosIgual
+soma1noPrimeiroNum2 1 l * primeiroElementoPosIgual
+soma1noPrimeiroNum2 2 m * primeiroElementoPosIgual
+soma1noPrimeiroNum2 3 n * primeiroElementoPosIgual
+soma1noPrimeiroNum2 4 o * primeiroElementoPosIgual
+soma1noPrimeiroNum2 5 p * primeiroElementoPosIgual
+soma1noPrimeiroNum2 6 q * primeiroElementoPosIgual
+soma1noPrimeiroNum2 7 r * primeiroElementoPosIgual
+soma1noPrimeiroNum2 8 s * primeiroElementoPosIgual
+soma1noPrimeiroNum2 9 t l soma1noPrimeiroNum2
+soma1noPrimeiroNum2 _ u r primeiroElementoPosIgual
+soma1noPrimeiroNum2 * * l soma1noPrimeiroNum2
 
-primeiroElementoPosIgual = * r movResult
+primeiroElementoPosIgual = * r moverFimResult
 primeiroElementoPosIgual * * r primeiroElementoPosIgual
-
-moveAteIgual = * r transformaResp
-moveAteIgual * * r moveAteIgual
-
-transformaResp a 0 * moverFimResult
-transformaResp b 1 * moverFimResult
-transformaResp c 2 * moverFimResult
-transformaResp d 3 * moverFimResult
-transformaResp e 4 * moverFimResult
-transformaResp f 5 * moverFimResult
-transformaResp g 6 * moverFimResult
-transformaResp h 7 * moverFimResult
-transformaResp i 8 * moverFimResult
-transformaResp j 9 * moverFimResult
