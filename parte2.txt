@@ -20,6 +20,23 @@
 ;8+1 = 9=s
 ;9+1 = 0=t e u = 1
 
+0 _ = * reseta
+0 0 * r 0
+0 1 * r 0
+0 2 * r 0
+0 3 * r 0
+0 4 * r 0
+0 5 * r 0
+0 6 * r 0
+0 7 * r 0
+0 8 * r 0
+0 9 * r 0
+0 + * r 0
+0 * * * halt-reject
+
+
+reseta _ * r 1
+reseta * * l reseta
 
 1 0 * l 1ponto1
 1 1 * l 1ponto1
