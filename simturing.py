@@ -21,10 +21,10 @@ parser.add_argument('filename', help='Arquivo .MT')
 parser.add_argument('-head', dest='head',type=str, help='Customiza delimitadores do cabeçote')
 group.add_argument('-r', dest='resume', action='store_true',help='Resume: executa o programa até o fim e depois imprime o conteúdo final na fita')
 group.add_argument('-resume',dest='resume', action='store_true',help='Resume: executa o programa até o fim e depois imprime o conteúdo final na fita')
-group.add_argument('-s', dest='step',action='store_true',help='Step: mostra a execução passo a passo')
-group.add_argument('-step', dest='step',action='store_true',help='Step: mostra a execução passo a passo')
-group.add_argument('-v', type=int, dest='verbose',help='Verbose numerado: mostra n linhas de execução passo a passo e depois para.')
-group.add_argument('-verbose', type=int ,dest='verbose',help='Verbose numerado: mostra n linhas de execução passo a passo e depois para.')
+group.add_argument('-s', dest='step',type=int,help='Step: mostra a execução passo a passo com n linhas')
+group.add_argument('-step', dest='step',type=int,help='Step: mostra a execução passo a passo com n linhas')
+group.add_argument('-v', action='store_true', dest='verbose',help='Verbose numerado:  linhas de execução passo a passo e depois para.')
+group.add_argument('-verbose',action='store_true',dest='verbose',help='Verbose numerado:  linhas de execução passo a passo e depois para.')
 args = parser.parse_args()
 
 # ------------------------ Simulador ----------------------------------------
@@ -33,7 +33,7 @@ print('Desenvolvido como trabalho prático para a disciplina de Teoria da Comput
 print('Autores: Alberto Gusmão e Gabriel Gondim')
 
 palavra = input('\nForneça a palavra inicial: ')
-
+# args.filename
 banco = Arquivo(args.filename).lerArquivo()
 mt = Maquina(banco,palavra,args.head)
 
@@ -42,35 +42,35 @@ while True:
         print('Mostrando o conteúdo somente no final da fita')
         args.resume = False
         mt.run()
-    elif args.step: #faz uma execução linha a linha e mata o programa
+    elif args.verbose: #faz uma execução linha a linha e mata o programa
         print('Execução passo a passo')
-        args.step = False
-        mt.run(True)
-    elif args.verbose: #usuario define quantidade de passos, depois abre um prompt pedindo outras opções
-        if args.verbose == -1:
-            v = input('Defina a quantidade de passos: ')
-            args.verbose = int(v)
-        print(f'Rodando {args.verbose} linhas')
-        mt.run(True,args.verbose)
         args.verbose = False
+        mt.run(debug=True)
+    elif args.step: #usuario define quantidade de passos, depois abre um prompt pedindo outras opções
+        if args.step == -1:
+            v = input('Defina a quantidade de passos: ')
+            args.step = int(v)
+        print(f'Rodando {args.step} linhas')
+        mt.run(debug=True,step=args.step)
+        args.step = False
     else: #prompt para o usuario escolher nova opção
         while True:
             op = input('Forneça opção (r,v,s): ')
             match op:
                 case 'r':
                     args.resume = True
-                    args.verbose = None
                     args.step = None
+                    args.verbose = None
                     break
                 case 'v':
                     args.resume = None
-                    args.verbose = -1
                     args.step = None
+                    args.verbose = True
                     break
                 case 's':
                     args.resume = None
+                    args.step = -1
                     args.verbose = None
-                    args.step = True
                     break
                 case _:
                     print('Opção inválida !')

@@ -41,7 +41,7 @@ class Maquina:
         else:
             self.ponteiro = int(entrada.find(entrada[0]))
         self.blocoAtual = "main"
-        self.estadoAtual = '01'
+        self.estadoAtual = '1'
         self.listaRetorno = []
         self.blocoAnterior = None
         self.estadoAnterior = None
@@ -56,7 +56,7 @@ class Maquina:
         else: #delimitador padrão
             self.delim = '()'
 
-    def run(self,debug=False,verbose=False):
+    def run(self,debug=False,step=False):
         # i = contador de passos, começo em 2, pois já vou imprimir o primeiro passo antes de entrar no loop
         i = 2
         if debug:
@@ -66,6 +66,14 @@ class Maquina:
             if self.pausaPosBloco:
                 self.pausaPosBloco = None
                 return
+
+            while self.estadoAtual == 'retorne':
+                self.estadoAtual = self.listaRetorno[-1]["estadoPosRetorne"]
+                self.blocoAnterior = self.blocoAtual
+                self.blocoAtual = self.listaRetorno[-1]["blocoAnterior"]
+                if self.listaRetorno[-1]["pausa"]:
+                    return
+                self.listaRetorno.pop()
 
             for elementos in self.banco:
                 self.simboloVerificado = 0
@@ -81,14 +89,16 @@ class Maquina:
                             if self.verificaTransicao():
                                 self.simboloVerificado = 1
                             else:
-                                print("Erro, não existe transição para esse simbolo. ")
+                                print(f"({self.estadoAtual},{dados['simboloAtual']}).Erro, não existe transição para esse simbolo. ")
                                 exit()
 
-                        if self.estadoAtual != "retorne" and int(dados["estadoAtual"]) == int(self.estadoAtual):
+                        if dados["estadoAtual"] == self.estadoAtual:
                             if len(dados) == 5 or len(dados) == 6:
                                 if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == "*":
+
                                     self.estadoAnterior = dados["estadoAtual"]
                                     self.estadoAtual = dados["comandoNovoEstado"]
+
                                     if dados["novoSimbolo"] != "*":
                                         listaEntrada = list(self.entrada)
                                         listaEntrada[self.ponteiro] = dados["novoSimbolo"]
@@ -114,6 +124,11 @@ class Maquina:
                                         if self.listaRetorno[-1]["pausa"]:
                                             self.pausaPosBloco = True
                                         self.listaRetorno.pop()
+
+                                        if debug:
+                                            print(self)
+                                            i+=1
+
                                         if len(dados) == 6:
                                             return
                                         break
@@ -124,7 +139,7 @@ class Maquina:
                                     if debug:
                                         print(self)
 
-                                    if verbose and verbose == i:
+                                    if step and step == i:
                                         return
 
                                     #conta um passo realizado
@@ -133,8 +148,13 @@ class Maquina:
 
                             if len(dados) == 3 or len(dados) == 4:
                                 self.estadoAnterior = dados["estadoAtual"]
+                                #Obtendo o estado inicial do bloco
+                                for bloco in self.banco:
+                                    if bloco["nome"] == dados["bloco"]:
+                                        self.estadoAtual = bloco["estadoInicial"]
+                                        break
                                 self.estadoPosRetorne = dados["comandoNovoEstado"]
-                                self.estadoAtual = elementos["estadoInicial"]
+                                # self.estadoAtual = elementos["estadoInicial"]
                                 self.blocoAtual = dados["bloco"]
                                 self.blocoAnterior = elementos["nome"]
 
@@ -150,11 +170,13 @@ class Maquina:
                                 if debug:
                                     print(self)
 
-                                if verbose and verbose == i:
+                                if step and step == i:
                                     return
 
                                 i+=1
                                 break
+
+
 
             if self.estadoFinal:
                 break
@@ -191,10 +213,11 @@ class Maquina:
         for elementos in self.banco:
             if elementos["nome"] == self.blocoAtual:
                 for dados in elementos["dados"]:
-                    if int(dados['estadoAtual']) == int(self.estadoAtual):
+                    if dados['estadoAtual'] == self.estadoAtual or dados['estadoAtual'] == 'retorne':
                         if len(dados) == 5 or len(dados) == 6:
-                            if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == "*":
+                            if dados["simboloAtual"] == self.entrada[self.ponteiro] or dados["simboloAtual"] == '*':
                                 return True
                         if len(dados) == 3 or len(dados) == 4:
                                 return True
+
         return False

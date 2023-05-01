@@ -76,11 +76,11 @@ class Arquivo():
                                 blocoAtual["dados"].append(dadosBloco)
                             else:
                                 self.erroArquivo(index + 1, palavras[6])
+
                 elif palavras[0] == "fim":
                     self.banco.append(blocoAtual)
                     blocoAtual = None
                     dadosBloco = None
-
         return self.banco
 
     def erroArquivo(self, linha, elemento):
