@@ -24,13 +24,14 @@
 
 ; -------------------
 
-bloco main 1
+bloco main 0
 
     ;reseta = 10
     ;1ponto1 = 11
     ;numEsq = 12
 
     0 _ -- = i 10
+    0 = -- * i 10
     0 0 -- * d 0
     0 1 -- * d 0
     0 2 -- * d 0

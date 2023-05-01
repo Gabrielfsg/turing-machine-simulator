@@ -41,7 +41,7 @@ class Maquina:
         else:
             self.ponteiro = int(entrada.find(entrada[0]))
         self.blocoAtual = "main"
-        self.estadoAtual = '1'
+        self.estadoAtual = '0'
         self.listaRetorno = []
         self.blocoAnterior = None
         self.estadoAnterior = None
