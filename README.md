@@ -8,11 +8,11 @@ Como rodar:
 
 -r ou -resume: imprime conteúdo final da fita e termina.
 
--s ou -step: imprime execução passo a passo
-
--v ou -verbose: imprime n passos de execução, necessário passar um número inteiro logo na frente do argumento. Exemplo: 
+-v ou -verbose: imprime execução passo a passo
     
-    python simturing.py -v 10 teste.MT.
+-s ou -step: imprime n passos de execução, necessário passar um número inteiro logo na frente do argumento. Exemplo: 
+ 
+    python simturing.py -s(ou -step) 10 teste.MT.
 
 ## \<programa>: Path do arquivo com extensão .MT com o código que o simulador deve executar.
 

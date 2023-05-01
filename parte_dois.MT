@@ -610,8 +610,9 @@ bloco setResEsq0Dir4 0
 fim
 
 bloco setResEsq0Dir5 0
-    0 _ -- 5 i moverFimResult
+    0 _ -- 5 i 1
     0 * -- * d 0
+    1 moverFimResult retorne
 fim
 
 bloco setResEsq0Dir6 0
@@ -671,8 +672,9 @@ bloco setResEsq1Dir4 0
 fim
 
 bloco setResEsq1Dir5 0
-    0 _ -- 6 i moverFimResult
+    0 _ -- 6 i 1
     0 * -- * d 0
+    1 moverFimResult retorne
 fim
 
 bloco setResEsq1Dir6 0
@@ -736,8 +738,9 @@ bloco setResEsq2Dir4 0
 fim
 
 bloco setResEsq2Dir5 0
-    0 _ -- 7 i moverFimResult
+    0 _ -- 7 i 1
     0 * -- * d 0
+    1 moverFimResult retorne
 fim
 
 bloco setResEsq2Dir6 0
@@ -801,8 +804,9 @@ bloco setResEsq3Dir4 0
 fim
 
 bloco setResEsq3Dir5 0
-    0 _ -- 8 i moverFimResult
+    0 _ -- 8 i 1
     0 * -- * d 0
+    1 moverFimResult retorne
 fim
 
 bloco setResEsq3Dir6 0
@@ -868,8 +872,9 @@ bloco setResEsq4Dir4 0
 fim
 
 bloco setResEsq4Dir5 0
-    0 _ -- 9 i moverFimResult
+    0 _ -- 9 i 1
     0 * -- * d 0
+    1 moverFimResult retorne
 fim
 
 bloco setResEsq4Dir6 0
