@@ -183,7 +183,6 @@ bloco numEsq 0
     19 somaNumEsq8 retorne
     20 somaNumEsq9 retorne
 
-
 fim
 
 ;blocos que somam com o menos significativo do operando da direita cujo número á esquerda é X

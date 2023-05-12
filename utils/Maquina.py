@@ -58,9 +58,7 @@ class Maquina:
 
     def run(self,debug=False,step=False):
         # i = contador de passos, começo em 2, pois já vou imprimir o primeiro passo antes de entrar no loop
-        i = 2
-        if debug:
-            print(self)
+        i = 0
         while not self.estadoFinal:
 
             if self.pausaPosBloco:
@@ -74,6 +72,12 @@ class Maquina:
                 if self.listaRetorno[-1]["pausa"]:
                     return
                 self.listaRetorno.pop()
+                if debug:
+                    print(self)
+                i+=1
+
+            if step and i >= step:
+                return
 
             for elementos in self.banco:
                 self.simboloVerificado = 0
@@ -139,7 +143,7 @@ class Maquina:
                                     if debug:
                                         print(self)
 
-                                    if step and step == i:
+                                    if step and i >= step:
                                         return
 
                                     #conta um passo realizado
@@ -170,7 +174,7 @@ class Maquina:
                                 if debug:
                                     print(self)
 
-                                if step and step == i:
+                                if step and step <= i:
                                     return
 
                                 i+=1

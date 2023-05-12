@@ -36,7 +36,9 @@ palavra = input('\nForneça a palavra inicial: ')
 # args.filename
 banco = Arquivo(args.filename).lerArquivo()
 mt = Maquina(banco,palavra,args.head)
-
+#Imprime configuração inicial
+print('Configuração incial: ')
+print(mt)
 while True:
     if args.resume: #Mostra conteudo final da fita e mata o programa
         print('Mostrando o conteúdo somente no final da fita')
