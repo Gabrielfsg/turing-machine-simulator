@@ -42,12 +42,12 @@ print(mt)
 while True:
     if args.resume: #Mostra conteudo final da fita e mata o programa
         print('Mostrando o conteúdo somente no final da fita')
-        args.resume = False
         mt.run()
+        args.resume = False
     elif args.verbose: #faz uma execução linha a linha e mata o programa
         print('Execução passo a passo')
-        args.verbose = False
         mt.run(debug=True)
+        args.verbose = False
     elif args.step: #usuario define quantidade de passos, depois abre um prompt pedindo outras opções
         if args.step == -1:
             v = input('Defina a quantidade de passos: ')
